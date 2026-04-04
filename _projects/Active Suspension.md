@@ -135,23 +135,23 @@ The following assumptions were made to simplify the analysis:
 The following analysis shows how the state space model is formed from the governing equations and then how the transfer function and poles are extracted from this.
 
 <figure>
-  <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/ODEs.png" class="img-large" alt="ODEs">
+  <img src="/assets/images/Active_Suspension/ODEs.png" class="img-large" alt="ODEs">
   <figcaption>Ordinary differential equations of the system.</figcaption>
 </figure>
 
 <div class="figure-row">
   <figure>
-    <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/X_vector.png" alt="X_vector">
+    <img src="/assets/images/Active_Suspension/X_vector.png" alt="X_vector">
     <figcaption>State vector, X.</figcaption>
   </figure>
 
   <figure>
-    <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/Y_vector.png" alt="Y_vector">
+    <img src="/assets/images/Active_Suspension/Y_vector.png" alt="Y_vector">
     <figcaption>Output vector, Y.</figcaption>
   </figure>
 
   <figure>
-    <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/U_vector.png" alt="U_vector">
+    <img src="/assets/images/Active_Suspension/U_vector.png" alt="U_vector">
     <figcaption>Input vector, U.</figcaption>
   </figure>
 </div>
@@ -159,19 +159,19 @@ The following analysis shows how the state space model is formed from the govern
 
 
 <figure>
-  <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/state_space1.png" class="img-large" alt="state_space1">
+  <img src="/assets/images/Active_Suspension/state_space1.png" class="img-large" alt="state_space1">
   <br>
-  <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/state_space2.png" class="img-large" alt="state_space2">
+  <img src="/assets/images/Active_Suspension/state_space2.png" class="img-large" alt="state_space2">
   <figcaption>State-space representation of the system.</figcaption>
 </figure>
 
 <figure class="figure-centered">
-  <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/Transfer function.png" class="img-medium" alt="Transfer function">
+  <img src="/assets/images/Active_Suspension/Transfer function.png" class="img-medium" alt="Transfer function">
   <figcaption>Closed-form transfer function of the system.</figcaption>
 </figure>
 
 <figure class="figure-centered">
-  <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/Poles.png" class="img-small" alt="Poles">
+  <img src="/assets/images/Active_Suspension/Poles.png" class="img-small" alt="Poles">
   <figcaption>Poles of the system.</figcaption>
 </figure>
 
@@ -179,7 +179,7 @@ The following analysis shows how the state space model is formed from the govern
 
 
 <figure>
-  <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/Bode.png" class="img-large" alt="Bode">
+  <img src="/assets/images/Active_Suspension/Bode.png" class="img-large" alt="Bode">
   <figcaption>Bode plot of body displacement.</figcaption>
 </figure>
 
@@ -189,12 +189,12 @@ The following analysis shows how the state space model is formed from the govern
 We analyzed the closed-loop dynamics using the block diagram of the system:
 
 <figure>
-  <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/BD.png" class="img-large" alt="Block_diagram">
+  <img src="/assets/images/Active_Suspension/BD.png" class="img-large" alt="Block_diagram">
   <figcaption>Closed-loop block diagram of the system.</figcaption>
 </figure>
 
 <figure>
-  <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/X_closedloop.png" class="img-large" alt="X_closedloop">
+  <img src="/assets/images/Active_Suspension/X_closedloop.png" class="img-large" alt="X_closedloop">
   <figcaption>State vector with closed-loop control.</figcaption>
 </figure>
 
@@ -222,7 +222,7 @@ In our model, we used the following parameters:
 We initially modeled the suspension system in open-loop form without any control. We then implemented skyhook control to improve performance. Below is a comparison between the open-loop and closed-loop response of the system:
 
 <figure>
-  <img src="/fa25-portfolio-CPearson03/assets/images/Active_Suspension/Control results.png" class="img-large" alt="Control results">
+  <img src="/assets/images/Active_Suspension/Control results.png" class="img-large" alt="Control results">
   <figcaption>Comparison of open-loop vs. closed-loop suspension response.</figcaption>
 </figure>
 

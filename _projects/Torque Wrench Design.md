@@ -53,9 +53,9 @@ In this project I designed a torque wrench that maximized strain-gauge output wh
 ## CAD Model
 
 <div class="img-row">
-  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/CAD-frontview.png" alt="Front view">
-  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/CAD-isometric.png" alt="Isometric view">
-  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/CAD-sideview.png" alt="Side view">
+  <img src="/assets/images/Torque_Wrench/CAD-frontview.png" alt="Front view">
+  <img src="/assets/images/Torque_Wrench/CAD-isometric.png" alt="Isometric view">
+  <img src="/assets/images/Torque_Wrench/CAD-sideview.png" alt="Side view">
 </div>
 
 ---
@@ -77,8 +77,8 @@ The relevant mechanical properties are:
 
 <figure>
   <div class="img-row">
-    <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/Applying-load.png" alt="Applying load" style="width:45%;">
-    <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/Applying-BC.png" alt="Applying boundary condition" style="width:45%;">
+    <img src="/assets/images/Torque_Wrench/Applying-load.png" alt="Applying load" style="width:45%;">
+    <img src="/assets/images/Torque_Wrench/Applying-BC.png" alt="Applying boundary condition" style="width:45%;">
   </div>
   <figcaption>
     Applied end torque and clamped boundary condition at the drive.
@@ -89,14 +89,14 @@ The relevant mechanical properties are:
 
 ## Plots from ANSYS
 <figure>
-  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/Normal Strain Contors.png"
+  <img src="/assets/images/Torque_Wrench/Normal Strain Contors.png"
        alt="Normal Strain Contours"
        style="width: 80%;">
   <figcaption>Normal strain (in gauge direction ) contour plot</figcaption>
 </figure>
 
 <figure>
-  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/Maximum Priniciple Stress.png"
+  <img src="/assets/images/Torque_Wrench/Maximum Priniciple Stress.png"
        alt="Maximum Principal Stress"
        style="width: 80%;">
   <figcaption>Maximum principal stress contor plot</figcaption>
