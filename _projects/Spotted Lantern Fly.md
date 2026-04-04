@@ -1,5 +1,5 @@
 ---
-layout: project
+layout: default
 title: Client Outline and Pitch
 description: Outline of our proposed solution for the New York vineyard owners' Spotted Lanternfly problem
 #technologies: []

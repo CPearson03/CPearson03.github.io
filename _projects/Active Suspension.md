@@ -1,5 +1,5 @@
 ---
-layout: project
+layout: default
 title: Active Suspension Project
 description: Modeling and designing an active suspension system
 technologies: [MATLAB]

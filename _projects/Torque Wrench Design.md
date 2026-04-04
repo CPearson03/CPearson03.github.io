@@ -1,5 +1,5 @@
 ---
-layout: project
+layout: default
 title: Torque Wrench Design Project
 description: Anysy Design Project
 technologies: [Autodesk, Fusion, MATLAB]
