@@ -1,0 +1,73 @@
+<svg viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Chassis box -->
+  <rect x="50" y="40" width="350" height="80" fill="none" stroke="black" stroke-width="2"/>
+  <text x="70" y="70" font-family="Arial" font-size="18" font-weight="bold">Chassis</text>
+  <text x="210" y="90" font-family="Arial" font-size="28" font-weight="bold" text-anchor="middle">M₁</text>
+  
+  <!-- x1 coordinate arrow and label -->
+  <line x1="450" y1="80" x2="450" y2="50" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="430" y1="80" x2="470" y2="80" stroke="black" stroke-width="1" stroke-dasharray="5,5"/>
+  <text x="480" y="70" font-family="Arial" font-size="18">x₁</text>
+  
+  <!-- Wheel box -->
+  <rect x="50" y="250" width="350" height="80" fill="none" stroke="black" stroke-width="2"/>
+  <text x="70" y="280" font-family="Arial" font-size="18" font-weight="bold">Wheel</text>
+  <text x="210" y="300" font-family="Arial" font-size="28" font-weight="bold" text-anchor="middle">M₂</text>
+  
+  <!-- x2 coordinate arrow and label -->
+  <line x1="450" y1="290" x2="450" y2="260" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <line x1="430" y1="290" x2="470" y2="290" stroke="black" stroke-width="1" stroke-dasharray="5,5"/>
+  <text x="480" y="280" font-family="Arial" font-size="18">x₂</text>
+  
+  <!-- Spring k1 (left) -->
+  <line x1="125" y1="120" x2="125" y2="145" stroke="black" stroke-width="2"/>
+  <path d="M 125 145 L 135 157 L 115 169 L 135 181 L 115 193 L 135 205 L 115 217 L 125 229" 
+        fill="none" stroke="black" stroke-width="2"/>
+  <line x1="125" y1="229" x2="125" y2="250" stroke="black" stroke-width="2"/>
+  <text x="80" y="190" font-family="Arial" font-size="22" font-weight="bold">k₁</text>
+  
+  <!-- Dashpot b1 (middle) -->
+  <!-- Top rod from M1 to piston head -->
+  <line x1="225" y1="120" x2="225" y2="197" stroke="black" stroke-width="2"/>
+  <!-- Outer cylinder (bottom half only) -->
+  <line x1="205" y1="173" x2="205" y2="215" stroke="black" stroke-width="2"/>
+  <line x1="245" y1="173" x2="245" y2="215" stroke="black" stroke-width="2"/>
+  <line x1="205" y1="215" x2="245" y2="215" stroke="black" stroke-width="2"/>
+  <!-- Piston head (positioned halfway down the cylinder) -->
+  <rect x="210" y="197" width="30" height="8" fill="black" stroke="black" stroke-width="1"/>
+  <!-- Bottom rod from cylinder bottom to M2 -->
+  <line x1="225" y1="215" x2="225" y2="250" stroke="black" stroke-width="2"/>
+  <text x="175" y="200" font-family="Arial" font-size="22" font-weight="bold">b₁</text>
+  
+  <!-- Actuator f (right) -->
+  <line x1="325" y1="120" x2="325" y2="160" stroke="black" stroke-width="2"/>
+  <circle cx="325" cy="185" r="25" fill="white" stroke="black" stroke-width="2"/>
+  <line x1="307" y1="202" x2="343" y2="168" stroke="black" stroke-width="2"/>
+  <line x1="325" y1="210" x2="325" y2="250" stroke="black" stroke-width="2"/>
+  <text x="355" y="192" font-family="Arial" font-size="22" font-weight="bold">f</text>
+  
+  <!-- Spring k2 (bottom) -->
+  <line x1="225" y1="330" x2="225" y2="355" stroke="black" stroke-width="2"/>
+  <path d="M 225 355 L 235 367 L 215 379 L 235 391 L 215 403 L 235 415 L 215 427 L 225 439" 
+        fill="none" stroke="black" stroke-width="2"/>
+  <line x1="225" y1="439" x2="225" y2="470" stroke="black" stroke-width="2"/>
+  <text x="170" y="400" font-family="Arial" font-size="22" font-weight="bold">k₂</text>
+  
+  <!-- Tire/wheel at bottom -->
+  <circle cx="225" cy="495" r="25" fill="white" stroke="black" stroke-width="3"/>
+  
+  <!-- Road surface -->
+  <line x1="20" y1="520" x2="430" y2="520" stroke="black" stroke-width="3"/>
+  <text x="40" y="545" font-family="Arial" font-size="18" font-weight="bold">Road surface</text>
+  
+  <!-- d coordinate arrow and label -->
+  <line x1="450" y1="520" x2="450" y2="485" stroke="black" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="465" y="510" font-family="Arial" font-size="18">d</text>
+  
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <polygon points="0 0, 10 5, 0 10" fill="black"/>
+    </marker>
+  </defs>
+</svg>

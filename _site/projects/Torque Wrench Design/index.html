@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Torque Wrench Design Project | Charlie Pearson</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Torque Wrench Design Project" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Anysy Design Project" />
+<meta property="og:description" content="Anysy Design Project" />
+<link rel="canonical" href="http://localhost:4000/projects/Torque%20Wrench%20Design/" />
+<meta property="og:url" content="http://localhost:4000/projects/Torque%20Wrench%20Design/" />
+<meta property="og:site_name" content="Charlie Pearson" />
+<meta property="og:image" content="http://localhost:4000/assets/images/Torque_Wrench/Torque%20Cover%20Image.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="http://localhost:4000/assets/images/Torque_Wrench/Torque%20Cover%20Image.png" />
+<meta property="twitter:title" content="Torque Wrench Design Project" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Anysy Design Project","headline":"Torque Wrench Design Project","image":"http://localhost:4000/assets/images/Torque_Wrench/Torque%20Cover%20Image.png","url":"http://localhost:4000/projects/Torque%20Wrench%20Design/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=395cc6168338b25a2ef5e8e61d9d65c13c838d36">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="http://localhost:4000/">Charlie Pearson</a></h1>
+
+        
+
+        <p>Charlie Pearson - Mechanical Engineering Portfolio</p>
+
+        
+        <p class="view"><a href="https://github.com/CPearson03/CPearson03.github.io">View the Project on GitHub <small>CPearson03/CPearson03.github.io</small></a></p>
+        
+
+        
+
+        
+      </header>
+      <section>
+
+      <style>
+  .project-hero {
+  text-align: center;
+  margin: 20px 0 30px 0; /* spacing around image */
+}
+
+.project-hero img {
+  max-width: 350px;   /* adjust size as needed */
+  width: 100%;
+  height: auto;
+  border-radius: 8px; /* optional for nicer look */
+}
+
+  .img-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .img-row img {
+    max-height: 180px;
+    width: auto;
+  }
+  figure {
+    text-align: center;
+    margin: 25px 0;
+  }
+  figcaption {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 5px;
+  }
+</style>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In this project I designed a torque wrench that maximized strain-gauge output while also meeting safety requirements for yielding, fracture, and fatigue. I first performed analytical hand calculations using beam theory, selecting geometry and material to satisfy the design requirements. I then modeled the design in Fusion 360 and imported it into ANSYS to simulate stress and strain under the maximum applied torque.</p>
+
+<hr />
+
+<h2 id="cad-model">CAD Model</h2>
+
+<div class="img-row">
+  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/CAD-frontview.png" alt="Front view" />
+  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/CAD-isometric.png" alt="Isometric view" />
+  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/CAD-sideview.png" alt="Side view" />
+</div>
+
+<hr />
+
+<h2 id="material-selection">Material Selection</h2>
+
+<p>I selected <strong>Aluminum 7075-T6</strong> for its high strength-to-modulus ratio and fatigue performance.<br />
+The relevant mechanical properties are:</p>
+
+<ul>
+  <li><strong>Young’s modulus (E):</strong> 10.5 × 10⁶ psi</li>
+  <li><strong>Poisson’s ratio:</strong> 0.33</li>
+  <li><strong>Ultimate tensile strength:</strong> 70 ksi</li>
+  <li><strong>Fracture toughness (Kᵢc):</strong> 24.2 ksi·√in</li>
+  <li><strong>Fatigue strength:</strong> 27 ksi</li>
+</ul>
+
+<hr />
+
+<h2 id="loads-and-boundary-conditions">Loads and Boundary Conditions</h2>
+
+<figure>
+  <div class="img-row">
+    <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/Applying-load.png" alt="Applying load" style="width:45%;" />
+    <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/Applying-BC.png" alt="Applying boundary condition" style="width:45%;" />
+  </div>
+  <figcaption>
+    Applied end torque and clamped boundary condition at the drive.
+  </figcaption>
+</figure>
+
+<hr />
+
+<h2 id="plots-from-ansys">Plots from ANSYS</h2>
+<figure>
+  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/Normal Strain Contors.png" alt="Normal Strain Contours" style="width: 80%;" />
+  <figcaption>Normal strain (in gauge direction ) contour plot</figcaption>
+</figure>
+
+<figure>
+  <img src="/fa25-portfolio-CPearson03/assets/images/Torque_Wrench/Maximum Priniciple Stress.png" alt="Maximum Principal Stress" style="width: 80%;" />
+  <figcaption>Maximum principal stress contor plot</figcaption>
+</figure>
+
+<hr />
+
+<h2 id="summary-of-fem-results">Summary of FEM Results</h2>
+
+<ul>
+  <li><strong>Maximum normal stress:</strong> 59.6 ksi</li>
+  <li><strong>Tip deflection:</strong> 0.52 in</li>
+  <li><strong>Strain at gauge location:</strong> 1.46 × 10<sup>−3</sup></li>
+  <li><strong>Torque wrench sensitivity:</strong> 1.46 × 10 mV/V</li>
+</ul>
+
+<hr />
+
+<h2 id="strain-gauge-selection">Strain Gauge Selection</h2>
+
+<p>I selected a <strong>half-bridge strain gauge</strong> with dimensions:</p>
+<ul>
+  <li><strong>Length:</strong> 0.25 in</li>
+  <li><strong>Width:</strong> 0.125 in</li>
+</ul>
+
+<p>This size fits comfortably on the side of the wrench and produces a sensitivity which exceeds the design requirement.</p>
+
+<hr />
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This project demonstrated a complete workflow from analytical design to CAD modeling to finite element analysis. The final torque wrench design met all safety factor requirements while maximizing strain-gauge output for improved measurement sensitivity.</p>
+
+
+
+      </section>
+      <footer>
+        
+        <p>This project is maintained by <a href="https://github.com/CPearson03">CPearson03</a></p>
+        
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+  </body>
+</html>

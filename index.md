@@ -9,8 +9,12 @@ title: Charlie Pearson
 ![Profile Picture]({{ "assets/images/profile-pic.jpg" | relative_url }}){: class="profile-image"}
 
  
-My name is {{ site.name }}, and I am [your pitch paragraph about your passions, knowledge and interestst.] Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec accumsan leo. Pellentesque ornare orci enim, vitae vestibulum nibh rutrum in. Donec pharetra risus nec ipsum fringilla, et mattis tortor auctor. Duis tortor ante, posuere ut odio a, scelerisque interdum purus. Aenean faucibus luctus est, sed bibendum tellus. Nulla et magna urna. Morbi a ipsum sollicitudin, rhoncus risus volutpat, ultricies nunc. Quisque mollis finibus ante id imperdiet. Quisque vehicula elit sit amet felis facilisis fermentum.
+I'm an MEng Mechanical Engineering student at the University of Edinburgh, where I was awarded the First Year Class Medal for the top academic performance in my cohort. I'm currently on exchange at Cornell University, and I'm predicted to graduate with First-Class honours in 2028.
 
-Aenean tincidunt aliquam arcu, in euismod dui dapibus eu. In placerat, mi et ultrices consequat, quam ligula cursus mauris, in semper neque nibh at est. Maecenas hendrerit dignissim porta. Phasellus nec fringilla dolor. Etiam efficitur nisi sit amet velit pharetra feugiat. Etiam ultrices turpis at leo semper, eleifend scelerisque neque malesuada. Aliquam molestie congue rhoncus. Donec blandit neque dolor, nec tristique mi pretium ac. Mauris tincidunt ullamcorper magna, nec pellentesque mi sagittis quis.
+My engineering interests centre on sustainable design and energy efficiency—recently, I led my team to 1st place at the BUiD Sustainability Spring School in Dubai, where we developed an innovative lighting solution. I'm comfortable moving between technical analysis (MATLAB, Python, ANSYS) and collaborative design work with international teams.
+
+Since 2020, I have built and scaled a tutoring business to over £15,000 in revenue, managing a team of 8 tutors and achieving a 100% pass rate for our students over five years.
+
+I'm now seeking engineering internships for Summer 2026 where I can apply my technical skills to real-world challenges, particularly in sustainable energy, product design, or manufacturing.
 
 Take a look at <a href="{{ "/projects/" | relative_url }}">my projects</a> and <a href="{{ "/cv/" | relative_url }}">CV</a>.
