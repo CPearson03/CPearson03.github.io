@@ -75,7 +75,15 @@
 
 <p>3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualizing the wake structure using Ansys Fluent.</p>
 
-<p>###add hyperlinks to locations in report###</p>
+<h4 id="milestones">Milestones</h4>
+
+<ul>
+  <li>Click <a href="### Objective">here</a> for Objective</li>
+  <li>Click <a href="### Methodology &amp; Pre-analysis">here</a> for Methodology &amp; Pre-analysis</li>
+  <li>Click <a href="### Results">here</a> for Results</li>
+  <li>Click <a href="### Discussion">here</a> for Discussion</li>
+  <li>Click <a href="### Limitations">here</a> for Limitations</li>
+</ul>
 
 <h3 id="objective">Objective</h3>
 
@@ -88,6 +96,35 @@
   <li>Density ρ = 1.193 kg/m³</li>
   <li>Dynamic viscosity μ = 1.7894 × 10⁻⁵ Pa·s</li>
 </ul>
+
+<p><strong>Geometry:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Length</td>
+      <td><em>1044 mm</em></td>
+    </tr>
+    <tr>
+      <td>Width</td>
+      <td><em>389 mm</em></td>
+    </tr>
+    <tr>
+      <td>Height</td>
+      <td><em>288 mm</em></td>
+    </tr>
+    <tr>
+      <td>Back Angle</td>
+      <td><em>25 Degrees</em></td>
+    </tr>
+  </tbody>
+</table>
 
 <p><strong>Domain and symmetry:</strong> Since the Ahmed body is symmetric about its centerline, only half the geometry was modeled, with a symmetry boundary condition on the centerplane to halve the mesh size without losing accuracy. This requires Cl, Cd and drag forces reported by the solver to be doubled.</p>
 

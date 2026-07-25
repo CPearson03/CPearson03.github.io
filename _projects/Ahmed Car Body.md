@@ -51,17 +51,35 @@ show_header_image: true
 
 3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualizing the wake structure using Ansys Fluent.
 
-###add hyperlinks to locations in report###
+
+#### Milestones
+
+- Click [here](### Objective) for Objective
+- Click [here](### Methodology & Pre-analysis) for Methodology & Pre-analysis
+- Click [here](### Results) for Results
+- Click [here](### Discussion) for Discussion
+- Click [here](### Limitations) for Limitations
+
 
 ### Objective
 
 The Ahmed body is a simplified car geometry widely used as a benchmark for bluff-body aerodynamics, because its rear slant produces flow separation and a recirculation region similar to a real vehicle. The goal of this project was to solve for the 3D turbulent flow field around the body, compute the drag coefficient (Cd) and lift coefficient (Cl), and build physical intuition for the flow by visualising velocity and pressure fields.
+
 
 ### Methodology & Pre-analysis
 
 **Governing equations:** Reynolds-Averaged Navier-Stokes (RANS), closed with the k-ω GEKO turbulence model. The RANS approach assumes the time-averaged flow statistics are steady, and models turbulent stresses via an eddy-viscosity approximation. The fluid was treated as Newtonian air, with:
 - Density ρ = 1.193 kg/m³
 - Dynamic viscosity μ = 1.7894 × 10⁻⁵ Pa·s
+
+**Geometry:**
+
+| Dimension | Value |
+|---|---|
+| Length | *1044 mm* |
+| Width | *389 mm* |
+| Height | *288 mm* |
+| Back Angle | *25 Degrees* |
 
 **Domain and symmetry:** Since the Ahmed body is symmetric about its centerline, only half the geometry was modeled, with a symmetry boundary condition on the centerplane to halve the mesh size without losing accuracy. This requires Cl, Cd and drag forces reported by the solver to be doubled.
 
