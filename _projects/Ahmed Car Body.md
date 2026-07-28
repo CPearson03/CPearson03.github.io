@@ -25,16 +25,49 @@ show_header_image: true
   border-radius: 8px; /* optional for nicer look */
 }
 
-  .img-row {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .img-row img {
-    max-height: 180px;
-    width: auto;
-  }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 15px 0;
+}
+th, td {
+  padding: 8px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.project-hero img {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.img-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+.img-row figure {
+  flex: 0 1 300px;
+  margin: 0;
+}
+.img-row img {
+  width: 300px;
+  height: 200px;
+  object-fit: contain;
+}
+.img-row-lg figure {
+  flex: 0 1 450px;
+  min-width: 0;
+}
+.img-row-lg img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+}
   figure {
     text-align: center;
     margin: 25px 0;
@@ -52,13 +85,13 @@ show_header_image: true
 3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualizing the wake structure using Ansys Fluent.
 
 
-#### Milestones
+#### Contents
 
-- Click [here](### Objective) for Objective
-- Click [here](### Methodology & Pre-analysis) for Methodology & Pre-analysis
-- Click [here](### Results) for Results
-- Click [here](### Discussion) for Discussion
-- Click [here](### Limitations) for Limitations
+- [Objective](#objective)
+- [Methodology & Pre-analysis](#methodology-pre-analysis)
+- [Results](#results)
+- [Discussion](#discussion)
+- [Limitations](#limitations)
 
 
 ### Objective
@@ -66,20 +99,27 @@ show_header_image: true
 The Ahmed body is a simplified car geometry widely used as a benchmark for bluff-body aerodynamics, because its rear slant produces flow separation and a recirculation region similar to a real vehicle. The goal of this project was to solve for the 3D turbulent flow field around the body, compute the drag coefficient (Cd) and lift coefficient (Cl), and build physical intuition for the flow by visualising velocity and pressure fields.
 
 
-### Methodology & Pre-analysis
+### Methodology & Pre-analysis {#methodology-pre-analysis}
+
+**Geometry**
+
+| Dimension | Value |
+|---|---|
+| Length | 1044 mm |
+| Width | 389 mm |
+| Height | 288 mm |
+| Back Angle | 25° |
+
+
+<figure>
+  <img src="/assets/images/Ahmed_Car/Geometry.png" alt="Ahmed body in SpaceClaim" width="450">
+  <figcaption>Ahmed body geometry (25° slant configuration) modeled in Ansys SpaceClaim.</figcaption>
+</figure>
 
 **Governing equations:** Reynolds-Averaged Navier-Stokes (RANS), closed with the k-ω GEKO turbulence model. The RANS approach assumes the time-averaged flow statistics are steady, and models turbulent stresses via an eddy-viscosity approximation. The fluid was treated as Newtonian air, with:
 - Density ρ = 1.193 kg/m³
 - Dynamic viscosity μ = 1.7894 × 10⁻⁵ Pa·s
 
-**Geometry:**
-
-| Dimension | Value |
-|---|---|
-| Length | *1044 mm* |
-| Width | *389 mm* |
-| Height | *288 mm* |
-| Back Angle | *25 Degrees* |
 
 **Domain and symmetry:** Since the Ahmed body is symmetric about its centerline, only half the geometry was modeled, with a symmetry boundary condition on the centerplane to halve the mesh size without losing accuracy. This requires Cl, Cd and drag forces reported by the solver to be doubled.
 
@@ -104,14 +144,35 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 - Total cell count: *151758* cells
 - Inverse orthogonal quality: max *0.83*, average 0.05
 
+<div class="img-row">
+  <figure>
+    <img src="/assets/images/Ahmed_Car/Mesh.png" alt="Generated Mesh">
+    <figcaption>Mesh generated around car body.</figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/images/Ahmed_Car/Mesh_boundary_layers.png" alt="Mesh cross-section">
+    <figcaption>Boundary layer inflation near the Ahmed car body wall, 5 layers.</figcaption>
+  </figure>
+</div>
+
+
 **Expected physical trends to check results against:** Flow decelerates (low velocity, high pressure) at the front stagnation point, accelerates around the front curvature (high velocity, low pressure), and separates at the back corner, producing a recirculation zone with reduced velocity and pressure due to viscous dissipation. Form drag is expected to dominate over skin-friction drag, driven by the pressure differential from separation.
 
 ### Results
 
-**Mesh**
+**Convergence**
 
-![Mesh cross-section](/assets/images/Ahmed_Car/Mesh_boundary_layers.png)
-*Boundary layer inflation near the Ahmed car body wall, 5 layers.*
+<div class="img-row img-row-lg">
+  <figure>
+    <img src="/assets/images/Ahmed_Car/Residuals.png" alt="Residuals">
+    <figcaption>Residuals converge below 10⁻³ after 58 iterations.</figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/images/Ahmed_Car/Force_coef_convergence.png" alt="Residual / Cd & Cl convergence history">
+    <figcaption>Coeficients stabalise after ~45 iterations.</figcaption>
+  </figure>
+</div>
+
 
 **Velocity contour**
 
@@ -127,15 +188,6 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 
 ![Streamlines showing recirculation](/assets/images/Ahmed_Car/Velocity_streamlines.png)
 *Recirculation bubble visible downstream of the rear corner.*
-
-**Convergence**
-
-![Residual / Cd & Cl convergence history](/assets/images/Ahmed_Car/Force_coef_convergence.png)
-*Coeficients stabalise after ~45 iterations.*
-
-
-![Residual](/assets/images/Ahmed_Car/Residuals.png)
-*Residuals converge below 10⁻³ after 58 iterations.*
 
 
 **Wall y+**

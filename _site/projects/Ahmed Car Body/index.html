@@ -50,16 +50,49 @@
   border-radius: 8px; /* optional for nicer look */
 }
 
-  .img-row {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .img-row img {
-    max-height: 180px;
-    width: auto;
-  }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 15px 0;
+}
+th, td {
+  padding: 8px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.project-hero img {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.img-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+.img-row figure {
+  flex: 0 1 300px;
+  margin: 0;
+}
+.img-row img {
+  width: 300px;
+  height: 200px;
+  object-fit: contain;
+}
+.img-row-lg figure {
+  flex: 0 1 450px;
+  min-width: 0;
+}
+.img-row-lg img {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+}
   figure {
     text-align: center;
     margin: 25px 0;
@@ -75,29 +108,23 @@
 
 <p>3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualizing the wake structure using Ansys Fluent.</p>
 
-<h4 id="milestones">Milestones</h4>
+<h4 id="contents">Contents</h4>
 
 <ul>
-  <li>Click <a href="### Objective">here</a> for Objective</li>
-  <li>Click <a href="### Methodology &amp; Pre-analysis">here</a> for Methodology &amp; Pre-analysis</li>
-  <li>Click <a href="### Results">here</a> for Results</li>
-  <li>Click <a href="### Discussion">here</a> for Discussion</li>
-  <li>Click <a href="### Limitations">here</a> for Limitations</li>
+  <li><a href="#objective">Objective</a></li>
+  <li><a href="#methodology-pre-analysis">Methodology &amp; Pre-analysis</a></li>
+  <li><a href="#results">Results</a></li>
+  <li><a href="#discussion">Discussion</a></li>
+  <li><a href="#limitations">Limitations</a></li>
 </ul>
 
 <h3 id="objective">Objective</h3>
 
 <p>The Ahmed body is a simplified car geometry widely used as a benchmark for bluff-body aerodynamics, because its rear slant produces flow separation and a recirculation region similar to a real vehicle. The goal of this project was to solve for the 3D turbulent flow field around the body, compute the drag coefficient (Cd) and lift coefficient (Cl), and build physical intuition for the flow by visualising velocity and pressure fields.</p>
 
-<h3 id="methodology--pre-analysis">Methodology &amp; Pre-analysis</h3>
+<h3 id="methodology-pre-analysis">Methodology &amp; Pre-analysis</h3>
 
-<p><strong>Governing equations:</strong> Reynolds-Averaged Navier-Stokes (RANS), closed with the k-ω GEKO turbulence model. The RANS approach assumes the time-averaged flow statistics are steady, and models turbulent stresses via an eddy-viscosity approximation. The fluid was treated as Newtonian air, with:</p>
-<ul>
-  <li>Density ρ = 1.193 kg/m³</li>
-  <li>Dynamic viscosity μ = 1.7894 × 10⁻⁵ Pa·s</li>
-</ul>
-
-<p><strong>Geometry:</strong></p>
+<p><strong>Geometry</strong></p>
 
 <table>
   <thead>
@@ -109,22 +136,33 @@
   <tbody>
     <tr>
       <td>Length</td>
-      <td><em>1044 mm</em></td>
+      <td>1044 mm</td>
     </tr>
     <tr>
       <td>Width</td>
-      <td><em>389 mm</em></td>
+      <td>389 mm</td>
     </tr>
     <tr>
       <td>Height</td>
-      <td><em>288 mm</em></td>
+      <td>288 mm</td>
     </tr>
     <tr>
       <td>Back Angle</td>
-      <td><em>25 Degrees</em></td>
+      <td>25°</td>
     </tr>
   </tbody>
 </table>
+
+<figure>
+  <img src="/assets/images/Ahmed_Car/Geometry.png" alt="Ahmed body in SpaceClaim" width="450" />
+  <figcaption>Ahmed body geometry (25° slant configuration) modeled in Ansys SpaceClaim.</figcaption>
+</figure>
+
+<p><strong>Governing equations:</strong> Reynolds-Averaged Navier-Stokes (RANS), closed with the k-ω GEKO turbulence model. The RANS approach assumes the time-averaged flow statistics are steady, and models turbulent stresses via an eddy-viscosity approximation. The fluid was treated as Newtonian air, with:</p>
+<ul>
+  <li>Density ρ = 1.193 kg/m³</li>
+  <li>Dynamic viscosity μ = 1.7894 × 10⁻⁵ Pa·s</li>
+</ul>
 
 <p><strong>Domain and symmetry:</strong> Since the Ahmed body is symmetric about its centerline, only half the geometry was modeled, with a symmetry boundary condition on the centerplane to halve the mesh size without losing accuracy. This requires Cl, Cd and drag forces reported by the solver to be doubled.</p>
 
@@ -152,14 +190,33 @@
   <li>Inverse orthogonal quality: max <em>0.83</em>, average 0.05</li>
 </ul>
 
+<div class="img-row">
+  <figure>
+    <img src="/assets/images/Ahmed_Car/Mesh.png" alt="Generated Mesh" />
+    <figcaption>Mesh generated around car body.</figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/images/Ahmed_Car/Mesh_boundary_layers.png" alt="Mesh cross-section" />
+    <figcaption>Boundary layer inflation near the Ahmed car body wall, 5 layers.</figcaption>
+  </figure>
+</div>
+
 <p><strong>Expected physical trends to check results against:</strong> Flow decelerates (low velocity, high pressure) at the front stagnation point, accelerates around the front curvature (high velocity, low pressure), and separates at the back corner, producing a recirculation zone with reduced velocity and pressure due to viscous dissipation. Form drag is expected to dominate over skin-friction drag, driven by the pressure differential from separation.</p>
 
 <h3 id="results">Results</h3>
 
-<p><strong>Mesh</strong></p>
+<p><strong>Convergence</strong></p>
 
-<p><img src="/assets/images/Ahmed_Car/Mesh_boundary_layers.png" alt="Mesh cross-section" />
-<em>Boundary layer inflation near the Ahmed car body wall, 5 layers.</em></p>
+<div class="img-row img-row-lg">
+  <figure>
+    <img src="/assets/images/Ahmed_Car/Residuals.png" alt="Residuals" />
+    <figcaption>Residuals converge below 10⁻³ after 58 iterations.</figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/images/Ahmed_Car/Force_coef_convergence.png" alt="Residual / Cd &amp; Cl convergence history" />
+    <figcaption>Coeficients stabalise after ~45 iterations.</figcaption>
+  </figure>
+</div>
 
 <p><strong>Velocity contour</strong></p>
 
@@ -175,14 +232,6 @@
 
 <p><img src="/assets/images/Ahmed_Car/Velocity_streamlines.png" alt="Streamlines showing recirculation" />
 <em>Recirculation bubble visible downstream of the rear corner.</em></p>
-
-<p><strong>Convergence</strong></p>
-
-<p><img src="/assets/images/Ahmed_Car/Force_coef_convergence.png" alt="Residual / Cd &amp; Cl convergence history" />
-<em>Coeficients stabalise after ~45 iterations.</em></p>
-
-<p><img src="/assets/images/Ahmed_Car/Residuals.png" alt="Residual" />
-<em>Residuals converge below 10⁻³ after 58 iterations.</em></p>
 
 <p><strong>Wall y+</strong></p>
 
