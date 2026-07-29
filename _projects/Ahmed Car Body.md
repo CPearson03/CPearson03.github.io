@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Ahmed Car Model Flow
-description: Anysy Analysis Project
+description: Ansys Analysis Project
 technologies: [Ansys Fluent]
 image: /assets/images/Ahmed_Car/Thumbnail.png
 show_header_image: false
@@ -168,7 +168,7 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
   </figure>
   <figure style="width: 350px;">
     <img src="/assets/images/Ahmed_Car/Force_coef_convergence.png" alt="Residual / Cd & Cl convergence history">
-    <figcaption>Coeficients stabilise after ~45 iterations.</figcaption>
+    <figcaption>Coefficients stabilise after ~45 iterations.</figcaption>
   </figure>
 </div>
 
