@@ -3,9 +3,8 @@ layout: default
 title: Ahmed Car Model Flow
 description: Anysy Analysis Project
 technologies: [Ansys Fluent]
-image: /assets/images/Ahmed_Car/Velocity_streamlines.png
-
-show_header_image: true
+image: /assets/images/Ahmed_Car/Thumbnail.png
+show_header_image: false
 ---
 
 
@@ -19,7 +18,7 @@ show_header_image: true
 }
 
 .project-hero img {
-  max-width: 350px;   /* adjust size as needed */
+  max-width: 100px;   /* adjust size as needed */
   width: 100%;
   height: auto;
   border-radius: 8px; /* optional for nicer look */
@@ -43,49 +42,50 @@ th, td {
   border-radius: 8px;
 }
 
+figure {
+  text-align: center;
+  margin: 25px 0;
+}
+figcaption {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 5px;
+}
+figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
 .img-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 20px;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin: 25px 0;
 }
 .img-row figure {
-  flex: 0 1 300px;
   margin: 0;
+  flex: 0 0 auto;
 }
 .img-row img {
-  width: 300px;
-  height: 200px;
-  object-fit: contain;
-}
-.img-row-lg figure {
-  flex: 0 1 450px;
-  min-width: 0;
-}
-.img-row-lg img {
   width: 100%;
-  height: 300px;
-  object-fit: contain;
-}
-  figure {
-    text-align: center;
-    margin: 25px 0;
-  }
-  figcaption {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 5px;
+  height: auto;
+  display: block;
+  border-radius: 8px;
   }
 </style>
 
 
 ## CFD Analysis of Ahmed Car Body Flow
 
-3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualizing the wake structure using Ansys Fluent.
+3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualising the wake structure using Ansys Fluent.
 
 
 #### Contents
+
+<img src="/assets/images/Ahmed_Car/Front_image.png" alt="Streamlines showing recirculation" class="inline-image-r" style="max-width: 400px;">
 
 - [Objective](#objective)
 - [Methodology & Pre-analysis](#methodology-pre-analysis)
@@ -111,8 +111,8 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 | Back Angle | 25° |
 
 
-<figure>
-  <img src="/assets/images/Ahmed_Car/Geometry.png" alt="Ahmed body in SpaceClaim" width="450">
+<figure style="max-width: 450px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Ahmed_Car/Geometry.png" alt="Ahmed body in SpaceClaim">
   <figcaption>Ahmed body geometry (25° slant configuration) modeled in Ansys SpaceClaim.</figcaption>
 </figure>
 
@@ -133,23 +133,22 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 - Symmetry plane: zero-gradient (symmetry) condition
 
 **Solver settings:** Pressure-based solver, second-order upwind discretisation for turbulent kinetic energy and specific dissipation rate, with pseudo-transient and high-order term relaxation enabled for stability. Solution initialised using standard initialisation computed from the inlet, followed by Full Multi-Grid (FMG) initialisation via the solver's text interface for a more robust initial guess. Run for 100 iterations, with residuals converging below 10⁻³.
-###report exactly how many iterations? If yes - 58 iterations till converged###
 
 **Force coefficients:** Cd and Cl were computed using reference values matching the Ahmed body's frontal area (0.112 m²), free-stream velocity (40 m/s), and density (1.193 kg/m³).
 
 
 **Mesh**
 - Boundary layer resolved using 5 inflation layers (12+ recommended — see Limitations), with a first-cell height targeting y+ ≈ 50, appropriate for a wall-function-based (law of the wall) approach rather than fully resolving the viscous sublayer.
-- Mesh quality assessed via inverse orthogonal quality, with a target maximum below 0.95 (higher values make the discretized equations increasingly stiff and hurt convergence).
-- Total cell count: *151758* cells
-- Inverse orthogonal quality: max *0.83*, average 0.05
+- Mesh quality assessed via inverse orthogonal quality, with a target maximum below 0.95 (higher values make the discretised equations increasingly stiff and hurt convergence).
+- Total cell count: *151,758* cells
+- Inverse orthogonal quality: max *0.83*, average *0.05*
 
 <div class="img-row">
-  <figure>
+  <figure style="width: 380px;">
     <img src="/assets/images/Ahmed_Car/Mesh.png" alt="Generated Mesh">
     <figcaption>Mesh generated around car body.</figcaption>
   </figure>
-  <figure>
+  <figure style="width: 300px;">
     <img src="/assets/images/Ahmed_Car/Mesh_boundary_layers.png" alt="Mesh cross-section">
     <figcaption>Boundary layer inflation near the Ahmed car body wall, 5 layers.</figcaption>
   </figure>
@@ -162,32 +161,38 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 
 **Convergence**
 
-<div class="img-row img-row-lg">
-  <figure>
+<div class="img-row">
+  <figure style="width: 350px;">
     <img src="/assets/images/Ahmed_Car/Residuals.png" alt="Residuals">
     <figcaption>Residuals converge below 10⁻³ after 58 iterations.</figcaption>
   </figure>
-  <figure>
+  <figure style="width: 350px;">
     <img src="/assets/images/Ahmed_Car/Force_coef_convergence.png" alt="Residual / Cd & Cl convergence history">
     <figcaption>Coeficients stabalise after ~45 iterations.</figcaption>
   </figure>
 </div>
 
 
-**Velocity contour**
+**Velocity contours**
 
-![Velocity magnitude on symmetry plane](/assets/images/Ahmed_Car/Velocity_mag_cont.png)
-*Flow decelerates at the front of the body, accelerates around the front curvature and separates near the rear corner, consistent with expected bluff-body behavior.*
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Ahmed_Car/Velocity_mag_cont.png" alt="Velocity magnitude on symmetry plane">
+  <figcaption>Flow decelerates at the front of the body, accelerates around the front curvature and separates near the rear corner, consistent with expected bluff-body behavior.</figcaption>
+</figure>
 
-**Pressure contour**
+**Pressure contours**
 
-![Pressure on symmetry plane](/assets/images/Ahmed_Car/Pressure_mag_cont.png)
-*High-pressure region at the front of the body and low-pressure region visible in the wake due to recirculation zone. Results in pressure differential leading to significant form drag.*
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Ahmed_Car/Pressure_mag_cont.png" alt="Pressure on symmetry plane">
+  <figcaption>High-pressure region at the front of the body and low-pressure region visible in the wake due to recirculation zone. Results in pressure differential leading to significant form drag.</figcaption>
+</figure>
 
 **Streamlines**
 
-![Streamlines showing recirculation](/assets/images/Ahmed_Car/Velocity_streamlines.png)
-*Recirculation bubble visible downstream of the rear corner.*
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Ahmed_Car/Velocity_streamlines.png" alt="Streamlines showing recirculation">
+  <figcaption>Recirculation bubble visible downstream of the rear corner.</figcaption>
+</figure>
 
 
 **Wall y+**
@@ -195,14 +200,14 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 ![Wall y+ distribution](images/yplus_plot.png)
 *Values range from X–X, consistent with a wall-function approach.*
 
-**Force coefficients**
+**Force coefficients & drag forces**
 
 | Coefficient | Value |
 |---|---|
 | Cd | *0.335* |
 | Cl | *0.385* |
-| Form drag | *29.9N* |
-| Skin friction drag | *5.84N* | ###check what is correct s.f. to use###
+| Form drag | *29.9 N* |
+| Skin friction drag | *5.8 N* |
 
 
 ### Discussion
@@ -217,4 +222,4 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 
 ### Tools Used
 
-Ansys Workbench, Fluent Meshing, Fluent Solver (k-ω GEKO turbulence model), CFD-Post
+Ansys Workbench, Fluent Meshing, Fluent Solver (k-ω GEKO turbulence model), CFD-Post, SpaceClaim

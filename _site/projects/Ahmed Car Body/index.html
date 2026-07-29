@@ -44,7 +44,7 @@
 }
 
 .project-hero img {
-  max-width: 350px;   /* adjust size as needed */
+  max-width: 100px;   /* adjust size as needed */
   width: 100%;
   height: auto;
   border-radius: 8px; /* optional for nicer look */
@@ -68,47 +68,48 @@ th, td {
   border-radius: 8px;
 }
 
+figure {
+  text-align: center;
+  margin: 25px 0;
+}
+figcaption {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 5px;
+}
+figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
 .img-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 20px;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin: 25px 0;
 }
 .img-row figure {
-  flex: 0 1 300px;
   margin: 0;
+  flex: 0 0 auto;
 }
 .img-row img {
-  width: 300px;
-  height: 200px;
-  object-fit: contain;
-}
-.img-row-lg figure {
-  flex: 0 1 450px;
-  min-width: 0;
-}
-.img-row-lg img {
   width: 100%;
-  height: 300px;
-  object-fit: contain;
-}
-  figure {
-    text-align: center;
-    margin: 25px 0;
-  }
-  figcaption {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 5px;
+  height: auto;
+  display: block;
+  border-radius: 8px;
   }
 </style>
 
 <h2 id="cfd-analysis-of-ahmed-car-body-flow">CFD Analysis of Ahmed Car Body Flow</h2>
 
-<p>3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualizing the wake structure using Ansys Fluent.</p>
+<p>3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualising the wake structure using Ansys Fluent.</p>
 
 <h4 id="contents">Contents</h4>
+
+<p><img src="/assets/images/Ahmed_Car/Front_image.png" alt="Streamlines showing recirculation" class="inline-image-r" style="max-width: 400px;" /></p>
 
 <ul>
   <li><a href="#objective">Objective</a></li>
@@ -153,8 +154,8 @@ th, td {
   </tbody>
 </table>
 
-<figure>
-  <img src="/assets/images/Ahmed_Car/Geometry.png" alt="Ahmed body in SpaceClaim" width="450" />
+<figure style="max-width: 450px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Ahmed_Car/Geometry.png" alt="Ahmed body in SpaceClaim" />
   <figcaption>Ahmed body geometry (25° slant configuration) modeled in Ansys SpaceClaim.</figcaption>
 </figure>
 
@@ -177,25 +178,24 @@ th, td {
   <li>Symmetry plane: zero-gradient (symmetry) condition</li>
 </ul>
 
-<p><strong>Solver settings:</strong> Pressure-based solver, second-order upwind discretisation for turbulent kinetic energy and specific dissipation rate, with pseudo-transient and high-order term relaxation enabled for stability. Solution initialised using standard initialisation computed from the inlet, followed by Full Multi-Grid (FMG) initialisation via the solver’s text interface for a more robust initial guess. Run for 100 iterations, with residuals converging below 10⁻³.
-###report exactly how many iterations? If yes - 58 iterations till converged###</p>
+<p><strong>Solver settings:</strong> Pressure-based solver, second-order upwind discretisation for turbulent kinetic energy and specific dissipation rate, with pseudo-transient and high-order term relaxation enabled for stability. Solution initialised using standard initialisation computed from the inlet, followed by Full Multi-Grid (FMG) initialisation via the solver’s text interface for a more robust initial guess. Run for 100 iterations, with residuals converging below 10⁻³.</p>
 
 <p><strong>Force coefficients:</strong> Cd and Cl were computed using reference values matching the Ahmed body’s frontal area (0.112 m²), free-stream velocity (40 m/s), and density (1.193 kg/m³).</p>
 
 <p><strong>Mesh</strong></p>
 <ul>
   <li>Boundary layer resolved using 5 inflation layers (12+ recommended — see Limitations), with a first-cell height targeting y+ ≈ 50, appropriate for a wall-function-based (law of the wall) approach rather than fully resolving the viscous sublayer.</li>
-  <li>Mesh quality assessed via inverse orthogonal quality, with a target maximum below 0.95 (higher values make the discretized equations increasingly stiff and hurt convergence).</li>
-  <li>Total cell count: <em>151758</em> cells</li>
-  <li>Inverse orthogonal quality: max <em>0.83</em>, average 0.05</li>
+  <li>Mesh quality assessed via inverse orthogonal quality, with a target maximum below 0.95 (higher values make the discretised equations increasingly stiff and hurt convergence).</li>
+  <li>Total cell count: <em>151,758</em> cells</li>
+  <li>Inverse orthogonal quality: max <em>0.83</em>, average <em>0.05</em></li>
 </ul>
 
 <div class="img-row">
-  <figure>
+  <figure style="width: 380px;">
     <img src="/assets/images/Ahmed_Car/Mesh.png" alt="Generated Mesh" />
     <figcaption>Mesh generated around car body.</figcaption>
   </figure>
-  <figure>
+  <figure style="width: 300px;">
     <img src="/assets/images/Ahmed_Car/Mesh_boundary_layers.png" alt="Mesh cross-section" />
     <figcaption>Boundary layer inflation near the Ahmed car body wall, 5 layers.</figcaption>
   </figure>
@@ -207,67 +207,68 @@ th, td {
 
 <p><strong>Convergence</strong></p>
 
-<div class="img-row img-row-lg">
-  <figure>
+<div class="img-row">
+  <figure style="width: 350px;">
     <img src="/assets/images/Ahmed_Car/Residuals.png" alt="Residuals" />
     <figcaption>Residuals converge below 10⁻³ after 58 iterations.</figcaption>
   </figure>
-  <figure>
+  <figure style="width: 350px;">
     <img src="/assets/images/Ahmed_Car/Force_coef_convergence.png" alt="Residual / Cd &amp; Cl convergence history" />
     <figcaption>Coeficients stabalise after ~45 iterations.</figcaption>
   </figure>
 </div>
 
-<p><strong>Velocity contour</strong></p>
+<p><strong>Velocity contours</strong></p>
 
-<p><img src="/assets/images/Ahmed_Car/Velocity_mag_cont.png" alt="Velocity magnitude on symmetry plane" />
-<em>Flow decelerates at the front of the body, accelerates around the front curvature and separates near the rear corner, consistent with expected bluff-body behavior.</em></p>
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Ahmed_Car/Velocity_mag_cont.png" alt="Velocity magnitude on symmetry plane" />
+  <figcaption>Flow decelerates at the front of the body, accelerates around the front curvature and separates near the rear corner, consistent with expected bluff-body behavior.</figcaption>
+</figure>
 
-<p><strong>Pressure contour</strong></p>
+<p><strong>Pressure contours</strong></p>
 
-<p><img src="/assets/images/Ahmed_Car/Pressure_mag_cont.png" alt="Pressure on symmetry plane" />
-<em>High-pressure region at the front of the body and low-pressure region visible in the wake due to recirculation zone. Results in pressure differential leading to significant form drag.</em></p>
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Ahmed_Car/Pressure_mag_cont.png" alt="Pressure on symmetry plane" />
+  <figcaption>High-pressure region at the front of the body and low-pressure region visible in the wake due to recirculation zone. Results in pressure differential leading to significant form drag.</figcaption>
+</figure>
 
 <p><strong>Streamlines</strong></p>
 
-<p><img src="/assets/images/Ahmed_Car/Velocity_streamlines.png" alt="Streamlines showing recirculation" />
-<em>Recirculation bubble visible downstream of the rear corner.</em></p>
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Ahmed_Car/Velocity_streamlines.png" alt="Streamlines showing recirculation" />
+  <figcaption>Recirculation bubble visible downstream of the rear corner.</figcaption>
+</figure>
 
 <p><strong>Wall y+</strong></p>
 
 <p><img src="images/yplus_plot.png" alt="Wall y+ distribution" />
 <em>Values range from X–X, consistent with a wall-function approach.</em></p>
 
-<p><strong>Force coefficients</strong></p>
+<p><strong>Force coefficients &amp; drag forces</strong></p>
 
 <table>
   <thead>
     <tr>
       <th>Coefficient</th>
       <th>Value</th>
-      <th> </th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Cd</td>
       <td><em>0.335</em></td>
-      <td> </td>
     </tr>
     <tr>
       <td>Cl</td>
       <td><em>0.385</em></td>
-      <td> </td>
     </tr>
     <tr>
       <td>Form drag</td>
-      <td><em>29.9N</em></td>
-      <td> </td>
+      <td><em>29.9 N</em></td>
     </tr>
     <tr>
       <td>Skin friction drag</td>
-      <td><em>5.84N</em></td>
-      <td>###check what is correct s.f. to use###</td>
+      <td><em>5.8 N</em></td>
     </tr>
   </tbody>
 </table>
@@ -285,7 +286,7 @@ th, td {
 
 <h3 id="tools-used">Tools Used</h3>
 
-<p>Ansys Workbench, Fluent Meshing, Fluent Solver (k-ω GEKO turbulence model), CFD-Post</p>
+<p>Ansys Workbench, Fluent Meshing, Fluent Solver (k-ω GEKO turbulence model), CFD-Post, SpaceClaim</p>
 
   </main>
 
