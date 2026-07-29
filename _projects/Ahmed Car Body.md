@@ -91,7 +91,7 @@ figure img {
 - [Methodology & Pre-analysis](#methodology-pre-analysis)
 - [Results](#results)
 - [Discussion](#discussion)
-- [Limitations](#limitations)
+- [References](#references)
 
 
 ### Objective
@@ -123,7 +123,7 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 
 **Domain and symmetry:** Since the Ahmed body is symmetric about its centerline, only half the geometry was modeled, with a symmetry boundary condition on the centerplane to halve the mesh size without losing accuracy. This requires Cl, Cd and drag forces reported by the solver to be doubled.
 
-**Domain sizing:** The recommended practice for external aerodynamics is to place the front, side, and top boundaries at 10 characteristic lengths (L) from the body and the outlet at 20L, to keep the boundary conditions from artificially influencing the flow near the body. Due to time/computational constraints, a reduced domain was used instead: 2.5L upstream, 5L for the top, side, and downstream boundaries, and the ground modeled at true height (0). This is a known limitation — see below.
+**Domain sizing:** The recommended practice for external aerodynamics is to place the front, side, and top boundaries at 10 characteristic lengths (L) from the body and the outlet at 20L, to keep the boundary conditions from artificially influencing the flow near the body. Due to time/computational constraints, a reduced domain was used instead: 2.5L upstream, 5L for the top, side, and downstream boundaries, and the ground modeled at true height (0). This is a known limitation — see discussion.
 
 **Boundary conditions:**
 - Inlet: velocity-inlet, Vx = 40 m/s
@@ -155,7 +155,7 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 </div>
 
 
-**Expected physical trends to check results against:** Flow decelerates (low velocity, high pressure) at the front stagnation point, accelerates around the front curvature (high velocity, low pressure), and separates at the back corner, producing a recirculation zone with reduced velocity and pressure due to viscous dissipation. Form drag is expected to dominate over skin-friction drag, driven by the pressure differential from separation.
+**Expected physical trends to check results against:** Flow decelerates (low velocity, high pressure) at the front stagnation point, accelerates around the front curvature (high velocity, low pressure), and separates at the back corner, producing a recirculation zone with reduced velocity and pressure due to viscous dissipation. We may also see separation at the back window due to the sudden change in geometry. Form drag is expected to dominate over skin-friction drag, driven by the pressure differential from separation.
 
 ### Results
 
@@ -168,7 +168,7 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
   </figure>
   <figure style="width: 350px;">
     <img src="/assets/images/Ahmed_Car/Force_coef_convergence.png" alt="Residual / Cd & Cl convergence history">
-    <figcaption>Coeficients stabalise after ~45 iterations.</figcaption>
+    <figcaption>Coeficients stabilise after ~45 iterations.</figcaption>
   </figure>
 </div>
 
@@ -199,7 +199,7 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 
 <figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Ahmed_Car/Velocity_streamlines.png" alt="Streamlines showing recirculation">
-  <figcaption>Recirculation bubble visible downstream of the rear corner.</figcaption>
+  <figcaption>Flow remains attached at the rear window. A recirculation bubble is visible downstream of the rear corner after separation at this point. </figcaption>
 </figure>
 
 
@@ -215,13 +215,37 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 
 ### Discussion
 
+**Comparison to literature**
 
-*[To be added once results are in — compare computed Cd against the published experimental value of 0.298 for this Ahmed body configuration, and discuss agreement/discrepancy in light of mesh resolution and domain size.]*
+Experimental results for the same geometry and configuration report Cd = 0.299 and Cl = 0.345 [1]. The simulation overestimates both coefficients by approximately 12%. The flow remains attached along the rear slant in both the simulation and experiment, consistent with the documented behavior of Ahmed bodies with slant angles below the critical ~30° threshold, above which the flow transitions to a fully separated regime [1].
 
-### Limitations
+**Physical trend validation**
 
-- **Boundary layer resolution:** 5 inflation layers were used rather than the recommended 12+, which likely under-resolves the near-wall region and affects y+ and wall shear accuracy.
-- **Domain size:** The far-field boundaries were placed closer to the body than standard practice (2.5L–5L vs. the recommended 10L–20L) to reduce mesh size and solve time. This is a good candidate for a mesh/domain independence study if extended further.
+The pressure and velocity contours, along with the streamline visualisation, reproduce all of the physical trends anticipated in the Methodology section: a stagnation point at the front face, flow acceleration and a corresponding pressure drop around the front curvature, and separation at the rear corner producing a recirculation region. Form drag (29.9 N) is over 5x larger than skin friction drag (5.8 N), consistent with the expectation that pressure-driven separation dominates drag for bluff bodies of this geometry.
+
+**Attribution of discrepancy**
+
+Three modeling simplifications likely contribute to the 12% overestimation, ranked by expected impact:
+
+1. **Domain size** — the far-field boundaries were placed at 2.5L–5L rather than the recommended 10L–20L. A domain this constrained can artificially accelerate flow around the body (a blockage effect), which would tend to increase the predicted pressure differential and inflate both Cd and Cl. This is likely the largest contributor given how far the reduction is from standard practice.
+2. **Turbulence model & near-wall resolution** — the k-ω GEKO model, combined with only 5 inflation layers (versus the recommended 12+) and a y+ ≈ 50 wall-function approach, introduces uncertainty in the predicted separation point on the slant. RANS models are known to struggle with accurately capturing separation location on slanted rear surfaces, and an under-resolved boundary layer compounds this by increasing uncertainty in near-wall shear and pressure recovery.
+3. **Symmetry assumption** — modeling only half the body assumes perfectly symmetric flow, which removes any 3D instability or asymmetric wake dynamics that could be present in the full-body case, though this effect is typically minor compared to the two above.
+
+A logical next step to isolate these effects would be a domain independence study (re-running with the recommended 10L–20L domain) to check whether the overestimation shrinks — this would help confirm domain size as the dominant factor.
+
+**y+ and mesh quality**
+
+The y+ distribution ranges from 3–211, with most of the body wall falling between 3–55 — comfortably within the valid range for a wall-function-based approach (typically valid for 30 < y+ < 300). Localised values above this range on the support stilts likely reflect their reduced boundary layer resolution rather than the main body's surface, and given the stilts' small contribution to overall wetted area and force generation, this is unlikely to meaningfully affect the global Cd/Cl values reported.
+
+**Overall takeaway**
+
+A 12% overestimation in both Cd and Cl is a reasonable result for a first-pass RANS simulation using a reduced domain and a coarser than recommended boundary layer mesh. The consistent overestimation across both coefficients (rather than a mixed over/under-prediction) supports domain blockage as the most likely dominant cause, since it would be expected to inflate both coefficients simultaneously in the same direction. 
+
+
+### References
+
+[1] Moghimi, P., & Rafee, R. (2018). Numerical and Experimental Investigations on Aerodynamic Behavior of the Ahmed Body Model with Different Diffuser Angles. *Journal of Applied Fluid Mechanics*, 11(4), 1101–1113. https://doi.org/10.29252/jafm.11.04.27923
+
 
 ### Tools Used
 
