@@ -173,6 +173,14 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
 </div>
 
 
+**Wall y+**
+
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Ahmed_Car/y_plus.png" alt="Wall y+ distribution">
+  <figcaption>y+ distribution on the ahmed body wall, ranging from 3–211. Most of the body falls between 3–55; higher values are localised to the support stilts.</figcaption>
+</figure>
+
+
 **Velocity contours**
 
 <figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
@@ -194,11 +202,6 @@ The Ahmed body is a simplified car geometry widely used as a benchmark for bluff
   <figcaption>Recirculation bubble visible downstream of the rear corner.</figcaption>
 </figure>
 
-
-**Wall y+**
-
-![Wall y+ distribution](images/yplus_plot.png)
-*Values range from X–X, consistent with a wall-function approach.*
 
 **Force coefficients & drag forces**
 
