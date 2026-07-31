@@ -77,7 +77,7 @@ figure img {
 
 ## Electric Bike-Share Frame — FEA Design & Optimisation
 
-Structural design and finite element analysis of an electric bike frame for a bike-share scheme, built in **Fusion 360** (CAD) and **ANSYS Mechanical** (FEA). University project, university coursework.
+Structural design and finite element analysis of an electric bike frame for a bike-share scheme, built in **Fusion 360** (CAD) and **ANSYS Mechanical** (FEA).
 
 
 ### Contents
@@ -98,7 +98,7 @@ Structural design and finite element analysis of an electric bike frame for a bi
 
 Bike-share schemes replace short car journeys and improve public health, air quality, and access to affordable transport — but removing the frame's top tube to make the bike easier to mount, and adding a battery pack, changes how loads travel through the structure. This project designs a frame that stays lightweight and safe under that constraint.
 
-**Goals:** easy to mount (no top tube), lightweight, safety factor ≥ 2.
+**Goals:** easy to mount, lightweight, safety factor ≥ 2.
 
 **Process:**
 1. Analyse a generic bike frame with the top tube removed to understand load paths and critical regions within the frame.
@@ -107,7 +107,7 @@ Bike-share schemes replace short car journeys and improve public health, air qua
 
 ### Methodology
 
-The frame is built from thin-walled tubes, so it's modeled with **shell elements** rather than 3D solid elements. Shell theory assumes plane sections remain plane and displacements stay small (valid here since the frame is expected to stay elastic). This lets each tube be represented as a curved 2D mid-surface rather than a full 3D solid — each node carries 6 degrees of freedom (3 translations, 3 rotations) instead of the finer mesh a solid model would need, which keeps the model far cheaper to solve without sacrificing accuracy.
+The frame is built from thin-walled tubes, so it's modeled with **shell elements** rather than 3D solid elements. Shell theory assumes plane sections remain plane and displacements stay small - valid here since the frame is expected to stay within its elastic regime. This lets each tube be represented as a curved 2D mid-surface rather than a full 3D solid — each node carries 6 degrees of freedom (3 translations, 3 rotations) instead of the finer mesh a solid model would need, which keeps the model far cheaper to solve without sacrificing accuracy.
 
 The solution follows the standard FE energy-minimisation route:
 1. Express the displacement field from the shell kinematics, then derive strain and (via Hooke's Law) stress in terms of the unknown mid-surface displacement.
@@ -119,9 +119,9 @@ The solution follows the standard FE energy-minimisation route:
 ### Baseline Design 
 
 **Geometry**
-<figure style="max-width: 350px; margin-left: auto; margin-right: auto;">
+<figure style="max-width: 400px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Bike/V1_geom.png" alt="Baseline geometry">
-  <figcaption>Generic bike frame geometry with the top tube removed.</figcaption>
+  <figcaption>Generic bike frame with the top tube removed, modelled as a 2D mid-surface.</figcaption>
 </figure>
 
 
@@ -157,7 +157,7 @@ The solution follows the standard FE energy-minimisation route:
 </figure>
   <figure style="width: 150px;">
     <img src="/assets/images/Bike/V1_def_max.png" alt="Maximum deformation">
-    <figcaption>Maximum deformation occured at the seat tube.</figcaption>
+    <figcaption>Maximum deformation occured at the top of the seat tube.</figcaption>
   </figure>
 </div>
 
@@ -168,7 +168,7 @@ The solution follows the standard FE energy-minimisation route:
 </figure>
   <figure style="width: 200px;">
     <img src="/assets/images/Bike/V1_VM_max.png" alt="Maximum von-Mises stress">
-    <figcaption>Maximum von-Mises stress occured at the bottom bracket shell.</figcaption>
+    <figcaption>Maximum von-Mises stress occured at the connection of tubes on the bottom bracket shell.</figcaption>
   </figure>
 </div>
 
@@ -179,7 +179,7 @@ The solution follows the standard FE energy-minimisation route:
 </figure>
   <figure style="width: 200px;">
     <img src="/assets/images/Bike/V1_VM_max.png" alt="Maximum von-Mises stress">
-    <figcaption>Minimum safety factor occured at the bottom bracket shell.</figcaption>
+    <figcaption>Minimum safety factor occured at the connection of tubes on the bottom bracket shell.</figcaption>
   </figure>
 </div>
 
@@ -224,7 +224,7 @@ The redesigned geometry didn't clear the safety factor target at a uniform thick
   <figcaption>Tubes which have thickness optimised whilst keeping safety factor ≥ 2.</figcaption>
 </figure>
 
-| Tube | Optimized thickness | Rounded (manufacturable) |
+| Tube | Optimised thickness | Rounded (manufacturable) |
 |---|---|---|
 | Tube 1 | 1.267 mm | 1.2 mm |
 | Tube 2 | 1.739 mm | 1.8 mm |
@@ -259,7 +259,7 @@ Every model was checked three ways before trusting the results:
 
 - Modeling the frame as shell mid-surfaces (rather than solid geometry) was the right call for thin-walled tubes — it kept the mesh coarse and the solve fast without giving up accuracy, but it also meant rethinking the CAD from the start rather than just importing a solid model.
 - The first redesign attempt improved some regions of the frame but made others worse — a reminder that structural design is iterative, and a single "improvement" pass rarely gets everything right at once.
-- Parametric optimization was the highest-leverage step here: a 55% gain in safety factor for a 5% mass penalty, and it made clear how much value there is in understanding *why* an optimizer converges where it does rather than treating it as a black box.
+- Parametric optimisation was the highest-leverage step here: a 55% gain in safety factor for a 5% mass penalty, and it made clear how much value there is in understanding *why* an optimiser converges where it does rather than treating it as a black box.
 
 ### Tools
 Fusion 360, ANSYS Mechanical, ANSYS parametric optimisation
