@@ -83,7 +83,7 @@ figure img {
 3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualising the wake structure using Ansys Fluent.
 
 
-#### Contents
+### Contents
 
 <img src="/assets/images/Ahmed_Car/Front_image.png" alt="Streamlines showing recirculation" class="inline-image-r" style="max-width: 400px;">
 
