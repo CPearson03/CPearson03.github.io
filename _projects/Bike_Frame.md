@@ -185,7 +185,7 @@ The solution follows the standard FE energy-minimisation route:
   </figure>
   <figure>
     <img class="detail-img" src="/assets/images/Bike/V1_def_max.png" alt="Maximum deformation">
-    <figcaption>Maximum deformation occured at the top of the seat tube.</figcaption>
+    <figcaption>Maximum deformation occurred at the top of the seat tube.</figcaption>
   </figure>
 
   <figure>
@@ -194,7 +194,7 @@ The solution follows the standard FE energy-minimisation route:
   </figure>
   <figure>
     <img class="detail-img" src="/assets/images/Bike/V1_VM_max.png" alt="Maximum von-Mises stress">
-    <figcaption>Maximum von-Mises stress occured at the connection of tubes on the bottom bracket shell.</figcaption>
+    <figcaption>Maximum von-Mises stress occurred at the connection of tubes on the bottom bracket shell.</figcaption>
   </figure>
 
   <figure>
@@ -203,7 +203,7 @@ The solution follows the standard FE energy-minimisation route:
   </figure>
   <figure>
     <img class="detail-img" src="/assets/images/Bike/V1_VM_max.png" alt="Maximum von-Mises stress">
-    <figcaption>Minimum safety factor occured at the connection of tubes on the bottom bracket shell.</figcaption>
+    <figcaption>Minimum safety factor occurred at same critical location as stress.</figcaption>
   </figure>
 </div>
 
@@ -229,7 +229,7 @@ To make the bike easier to mount, I curved the lower edge of the down tube, so r
 </figure>
 
 
-Using the same FEA setup, I got the following results for the new geometry. All the critical maximum/minimum values occured at the same locations as the baseline geometry.
+Using the same FEA setup, I got the following results for the new geometry. All the critical maximum/minimum values occurred at the same locations as the baseline geometry.
 
 | Results Summary | Value |
 |---|---|
@@ -241,12 +241,12 @@ Using the same FEA setup, I got the following results for the new geometry. All 
 
 ### Parametric Optimisation
 
-The redesigned geometry didn't clear the safety factor target at a uniform thickness of 1.5mm. Rather than increasing the thickness of all tubes, I ran a parametric optimisation on the thickness of the three tubes most critical to the minimum safety factor, where I minimised the mass whilst acheiving a safety factor ≥ 2.
+The redesigned geometry didn't clear the safety factor target at a uniform thickness of 1.5mm. Rather than increasing the thickness of all tubes, I ran a parametric optimisation on the thickness of the three tubes most critical to the minimum safety factor, where I minimised the mass whilst achieving a safety factor ≥ 2.
 
 
 <div class="img-row">
   <figure style="max-width: 450px; margin-left: auto; margin-right: auto;">
-  <img src="/assets/images/Bike/optimisation.png" alt="Opitimised tubes">
+  <img src="/assets/images/Bike/optimisation.png" alt="Optimised tubes">
   <figcaption>Tubes with optimised thickness whilst maintaining a safety factor > 2.</figcaption>
 </figure>
   <figure style="width: 300px;">
@@ -288,13 +288,13 @@ Every model was checked three ways before trusting the results:
 
 ### Takeaways
 
-- Representing the frame as shell mid-surfaces rather than solid geometry was the appropriate choice for thin-walled tubes, keeping the mesh coarse and the solution efficient without sacrificing accuracy. This does however required the CAD to be constructed around shell theory from the start, rather than adapted from an existing solid model
+- Representing the frame as shell mid-surfaces rather than solid geometry was the appropriate choice for thin-walled tubes, keeping the mesh coarse and the solution efficient without sacrificing accuracy. This did, however, require the CAD to be constructed around shell theory from the start, rather than adapted from an existing solid model
 - The first redesign attempt improved some regions of the frame but made others worse — a reminder that structural design is iterative, and a single "improvement" pass rarely gets everything right at once.
 - Parametric optimisation was the highest-leverage step here: a 55% gain in safety factor for a 5% mass penalty would never have been possible by simply taking educated guesses at shell thicknesses.
 - limitations over welding - probably weakest part of the frame which isn't modeled in simulation, transient shock analysis - e.g. hitting a curb/bump, different loads
 
 
-## Limitations
+### Limitations
 
 - **Welded joints not modeled.** The joints are almost certainly the weakest point of the real frame, but the simulation treats the geometry as continuous — it doesn't capture the stress concentrations, residual stresses, or reduced material strength typical of a weld.
 - **Static analysis only.** The model doesn't capture dynamic or impact loading, such as hitting a curb or pothole, which can produce transient stresses well above the steady-state loads analysed here.
