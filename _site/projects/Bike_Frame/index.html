@@ -109,7 +109,7 @@ figure img {
 
 <h3 id="contents">Contents</h3>
 
-<p><img src="/assets/images/Bike/Thumbnail_2.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 300px;" /></p>
+<p><img src="/assets/images/Bike/Thumbnail_2.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 350px;" /></p>
 
 <ul>
   <li><a href="#overview">Overview</a></li>
@@ -119,6 +119,7 @@ figure img {
   <li><a href="#parametric-optimisation">Parametric optimisation</a></li>
   <li><a href="#verification">Verification</a></li>
   <li><a href="#takeaways">Takeaways</a></li>
+  <li><a href="#limitations">Limitations</a></li>
 </ul>
 
 <h3 id="overview">Overview</h3>
@@ -131,7 +132,7 @@ figure img {
 <ol>
   <li>Analyse a generic bike frame with the top tube removed to understand load paths and critical regions within the frame.</li>
   <li>Redesign the frame geometry to make it easier to mount and compensate for the missing top tube.</li>
-  <li>Run a parametric optimisation on tube wall thickness to minimise mass while keeping the safety factor above 2.</li>
+  <li>Run a parametric optimisation on thickness of tube walls to minimise mass while keeping the safety factor above 2.</li>
 </ol>
 
 <h3 id="methodology">Methodology</h3>
@@ -167,6 +168,10 @@ figure img {
     <tr>
       <td>Material</td>
       <td>Aluminium Alloy (E = 71 GPa, ν = 0.33, ρ = 2770 kg/m³)</td>
+    </tr>
+    <tr>
+      <td>Tube thickness</td>
+      <td>2mm (all tubes)</td>
     </tr>
     <tr>
       <td>Element size</td>
@@ -259,11 +264,10 @@ figure img {
   </tbody>
 </table>
 
-<p>Removing the top tube leaves the frame comfortably above the safety threshold — the critical region shifts to the joint between the seat tube and the down tube, where the loss of the top tube’s bracing is felt most.</p>
+<p>Removing the top tube leaves the frame comfortably above the safety threshold for a uniform tube thickness of 2mm. The critical region shifts to the bottom bracket shell, where the loss of the top tube’s bracing is felt most.</p>
 
 <h3 id="redesigned-geometry">Redesigned Geometry</h3>
-
-<p>Using the insight from the baseline run, I re-profiled the frame to route load more efficiently around the missing top tube (including relocating the battery), at a uniform 1.5 mm wall thickness to start.</p>
+<p>To make the bike easier to mount, I curved the lower edge of the down tube, so riders can step over it without stretching over a steep incline — a small change that matters if you’re wearing restrictive clothing. I relocated the battery to the midpoint of the down tube to suit this new shape, which also made for a convenient mounting position. Based on insight from the baseline run, I also dropped the wall thickness of all tubes to a uniform 1.5 mm to cut weight.</p>
 
 <figure style="max-width: 350px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Bike/V2_geom.png" alt="Redesigned geometry" />
@@ -275,7 +279,7 @@ figure img {
 <table>
   <thead>
     <tr>
-      <th>Result</th>
+      <th>Results Summary</th>
       <th>Value</th>
     </tr>
   </thead>
@@ -299,11 +303,11 @@ figure img {
   </tbody>
 </table>
 
-<p>###should I inlucde images of post processing or is it overkill/too many images###</p>
+<p>###should I include images of post processing or is it overkill/too many images###</p>
 
 <h3 id="parametric-optimisation">Parametric Optimisation</h3>
 
-<p>The redesigned geometry didn’t clear the safety factor target at a uniform thickness, so I ran a parametric optimisation on the wall thickness of the three tubes most critical to the minimum safety factor, minimising mass subject to a safety factor ≥ 2.</p>
+<p>The redesigned geometry didn’t clear the safety factor target at a uniform thickness of 1.5mm. Rather than increasing the thickness of all tubes, I ran a parametric optimisation on the thickness of the three tubes most critical to the minimum safety factor, where I minimised the mass whilst acheiving a safety factor ≥ 2.</p>
 
 <figure style="max-width: 550px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Bike/optimisation.png" alt="Opitimised tubes" />
@@ -320,17 +324,17 @@ figure img {
   </thead>
   <tbody>
     <tr>
-      <td>Tube 1</td>
+      <td>Seat Tube</td>
       <td>1.267 mm</td>
       <td>1.2 mm</td>
     </tr>
     <tr>
-      <td>Tube 2</td>
+      <td>Down Tube</td>
       <td>1.739 mm</td>
       <td>1.8 mm</td>
     </tr>
     <tr>
-      <td>Tube 3</td>
+      <td>Bottom Bracket</td>
       <td>2.995 mm</td>
       <td>3.0 mm</td>
     </tr>
@@ -339,9 +343,9 @@ figure img {
 
 <p><strong>Impact:</strong></p>
 <ul>
-  <li>Final mass <strong>2.60 kg</strong></li>
-  <li>Minimum safety factor <strong>2.04</strong></li>
-  <li>A <strong>55% increase</strong> in safety factor for only a 5% increase in mass over the uniform-thickness redesign.</li>
+  <li>Final mass 2.60 kg</li>
+  <li>Minimum safety factor 2.04</li>
+  <li>A <strong>55% increase in safety factor for only a 5% increase in mass</strong> over the uniform-thickness redesign.</li>
 </ul>
 
 <h3 id="verification">Verification</h3>
@@ -351,7 +355,7 @@ figure img {
 <ul>
   <li><strong>Reaction forces</strong> — reactions at the essential BCs summed to exactly balance the 880 N of applied load in the load direction, for both the baseline and final designs.</li>
   <li><strong>Boundary conditions</strong> — displacement at all constrained nodes confirmed to be exactly zero.</li>
-  <li><strong>Mesh convergence</strong> — total deformation and von-Mises stress were tracked across four levels of mesh refinement; both converged to within 5% (deformation after 1 refinement, stress after 3–4).</li>
+  <li><strong>Mesh convergence</strong> — total deformation and von-Mises stress were tracked across four levels of mesh refinement; both converged to within 5% (deformation after 1 refinement, stress after 4).</li>
 </ul>
 
 <div class="img-row">
@@ -368,9 +372,19 @@ figure img {
 <h3 id="takeaways">Takeaways</h3>
 
 <ul>
-  <li>Modeling the frame as shell mid-surfaces (rather than solid geometry) was the right call for thin-walled tubes — it kept the mesh coarse and the solve fast without giving up accuracy, but it also meant rethinking the CAD from the start rather than just importing a solid model.</li>
+  <li>Representing the frame as shell mid-surfaces rather than solid geometry was the appropriate choice for thin-walled tubes, keeping the mesh coarse and the solution efficient without sacrificing accuracy. This does however required the CAD to be constructed around shell theory from the start, rather than adapted from an existing solid model</li>
   <li>The first redesign attempt improved some regions of the frame but made others worse — a reminder that structural design is iterative, and a single “improvement” pass rarely gets everything right at once.</li>
-  <li>Parametric optimisation was the highest-leverage step here: a 55% gain in safety factor for a 5% mass penalty, and it made clear how much value there is in understanding <em>why</em> an optimiser converges where it does rather than treating it as a black box.</li>
+  <li>Parametric optimisation was the highest-leverage step here: a 55% gain in safety factor for a 5% mass penalty would never have been possible by simply taking educated guesses at shell thicknesses.</li>
+  <li>limitations over welding - probably weakest part of the frame which isn’t modeled in simulation, transient shock analysis - e.g. hitting a curb/bump, different loads</li>
+</ul>
+
+<h2 id="limitations">Limitations</h2>
+
+<ul>
+  <li><strong>Welded joints not modeled.</strong> The joints are almost certainly the weakest point of the real frame, but the simulation treats the geometry as continuous — it doesn’t capture the stress concentrations, residual stresses, or reduced material strength typical of a weld.</li>
+  <li><strong>Static analysis only.</strong> The model doesn’t capture dynamic or impact loading, such as hitting a curb or pothole, which can produce transient stresses well above the steady-state loads analysed here.</li>
+  <li><strong>Single, idealized load case.</strong> Only one symmetric loading condition (seated rider, steady pedaling) was tested. Real riding introduces combined and asymmetric loads — braking, cornering, or standing to pedal — that weren’t evaluated.</li>
+  <li><strong>No fatigue assessment.</strong> A bike frame experiences millions of load cycles over its service life. Cyclic loading can cause failure well below the static yield strength, so a frame that passes this static safety-factor check isn’t guaranteed to hold up long-term.</li>
 </ul>
 
 <h3 id="tools">Tools</h3>
