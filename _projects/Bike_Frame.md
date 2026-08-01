@@ -246,7 +246,7 @@ The redesigned geometry didn't clear the safety factor target at a uniform thick
 
 <div class="img-row">
   <figure style="max-width: 450px; margin-left: auto; margin-right: auto;">
-  <img src="/assets/images/Bike/optimisation.png" alt="Optimised tubes">
+  <img src="/assets/images/Bike/Optimisation.png" alt="Optimised tubes">
   <figcaption>Tubes with optimised thickness whilst maintaining a safety factor > 2.</figcaption>
 </figure>
   <figure style="width: 300px;">
