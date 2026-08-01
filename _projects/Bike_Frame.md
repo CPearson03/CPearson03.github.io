@@ -72,6 +72,31 @@ figure img {
   display: block;
   border-radius: 8px;
   }
+  .results-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  column-gap: 20px;
+  row-gap: 30px;
+  align-items: start;
+  margin: 25px 0;
+}
+.results-grid figure {
+  margin: 0;
+}
+.results-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+.results-grid .detail-img {
+  height: 180px;
+  object-fit: contain;
+}
+.results-grid .main-img {
+  max-width: 88%;
+  margin: 0 auto;
+}
 </style>
 
 
@@ -152,38 +177,37 @@ The solution follows the standard FE energy-minimisation route:
 
 
 **Results**
-<div class="img-row">
-  <figure style="max-width: 450px; margin-left: auto; margin-right: auto;">
-  <img src="/assets/images/Bike/V1_def.png" alt="Total deformation of frame">
-  <figcaption>Total deformation of frame.</figcaption>
-</figure>
-  <figure style="width: 150px;">
-    <img src="/assets/images/Bike/V1_def_max.png" alt="Maximum deformation">
+
+<div class="results-grid">
+  <figure>
+    <img class="main-img" src="/assets/images/Bike/V1_def.png" alt="Total deformation of frame">
+    <figcaption>Total deformation of frame.</figcaption>
+  </figure>
+  <figure>
+    <img class="detail-img" src="/assets/images/Bike/V1_def_max.png" alt="Maximum deformation">
     <figcaption>Maximum deformation occured at the top of the seat tube.</figcaption>
   </figure>
-</div>
 
-<div class="img-row">
-  <figure style="max-width: 450px; margin-left: auto; margin-right: auto;">
-  <img src="/assets/images/Bike/V1_VM.png" alt="von-Mises stress">
-  <figcaption>von-Mises Stress on frame.</figcaption>
-</figure>
-  <figure style="width: 200px;">
-    <img src="/assets/images/Bike/V1_VM_max.png" alt="Maximum von-Mises stress">
+  <figure>
+    <img class="main-img" src="/assets/images/Bike/V1_VM.png" alt="von-Mises stress">
+    <figcaption>von-Mises Stress on frame.</figcaption>
+  </figure>
+  <figure>
+    <img class="detail-img" src="/assets/images/Bike/V1_VM_max.png" alt="Maximum von-Mises stress">
     <figcaption>Maximum von-Mises stress occured at the connection of tubes on the bottom bracket shell.</figcaption>
   </figure>
-</div>
 
-<div class="img-row">
-  <figure style="max-width: 450px; margin-left: auto; margin-right: auto;">
-  <img src="/assets/images/Bike/V1_SF.png" alt="Safety factor">
-  <figcaption>Safety factor on frame.</figcaption>
-</figure>
-  <figure style="width: 200px;">
-    <img src="/assets/images/Bike/V1_VM_max.png" alt="Maximum von-Mises stress">
+  <figure>
+    <img class="main-img" src="/assets/images/Bike/V1_SF.png" alt="Safety factor">
+    <figcaption>Safety factor on frame.</figcaption>
+  </figure>
+  <figure>
+    <img class="detail-img" src="/assets/images/Bike/V1_VM_max.png" alt="Maximum von-Mises stress">
     <figcaption>Minimum safety factor occured at the connection of tubes on the bottom bracket shell.</figcaption>
   </figure>
 </div>
+
+
 
 
 | Results Summary | Value |
@@ -214,16 +238,22 @@ Using the same FEA setup, I got the following results for the new geometry. All 
 | Max von-Mises stress | 190.0 MPa |
 | Minimum safety factor | 1.32 (below the target of 2) |
 
-###should I include images of post processing or is it overkill/too many images###
 
 ### Parametric Optimisation
 
 The redesigned geometry didn't clear the safety factor target at a uniform thickness of 1.5mm. Rather than increasing the thickness of all tubes, I ran a parametric optimisation on the thickness of the three tubes most critical to the minimum safety factor, where I minimised the mass whilst acheiving a safety factor ≥ 2.
 
-<figure style="max-width: 550px; margin-left: auto; margin-right: auto;">
+
+<div class="img-row">
+  <figure style="max-width: 450px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Bike/optimisation.png" alt="Opitimised tubes">
-  <figcaption>Tubes which have thickness optimised whilst keeping safety factor ≥ 2.</figcaption>
+  <figcaption>Tubes with optimised thickness whilst maintaining a safety factor > 2.</figcaption>
 </figure>
+  <figure style="width: 300px;">
+    <img src="/assets/images/Bike/V2_SF.png" alt="Safety factor of final frame">
+    <figcaption>Final frame design with a minimum safety factor > 2.</figcaption>
+  </figure>
+</div>
 
 | Tube | Optimised thickness | Rounded (manufacturable) |
 |---|---|---|
