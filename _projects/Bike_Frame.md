@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Electric Bike-Share Frame — FEA Design & Optimisation
+title: Electric Bike-Share Frame
 description: FEA Analysis Project
 technologies: [Ansys Mechanical, Fusion 360]
 image: /assets/images/Bike/Thumbnail.png 
