@@ -137,7 +137,7 @@ The frame is built from thin-walled tubes, so it's modeled with **shell elements
 
 The solution follows the standard FE energy-minimisation route:
 1. Express the displacement field from the shell kinematics, then derive strain and (via Hooke's Law) stress in terms of the unknown mid-surface displacement.
-2. Build the total potential energy, Π = W_int − W_ext, integrating strain energy through the tube thickness.
+2. Build the total potential energy, Π = W<sub>int</sub> − W<sub>ext</sub>, integrating strain energy through the tube thickness.
 3. Discretise with a mesh, assemble element stiffness contributions, and minimise Π with respect to each nodal DOF (∂Π/∂dᵢ = 0), giving the system **[K][d] = [f]**.
 4. Solve for unknown DOF using the essential boundary conditions, back out reaction forces, then post-process for stress, strain, and safety factor.
 
