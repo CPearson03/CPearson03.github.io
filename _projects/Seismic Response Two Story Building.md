@@ -1,0 +1,200 @@
+---
+layout: default
+title: Seismic Response of a Two-Story Building
+description: Numerical Methods Project
+technologies: [Python, NumPy, Matplotlib]
+image: /assets/images/Seismic_Response/Thumbnail.png
+show_header_image: false
+---
+
+<style>
+  .project-hero {
+  text-align: center;
+  margin: 20px 0 30px 0;
+}
+
+.project-hero img {
+  max-width: 100px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 15px 0;
+}
+th, td {
+  padding: 8px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.project-hero img {
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+figure {
+  text-align: center;
+  margin: 25px 0;
+}
+figcaption {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 5px;
+}
+figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.img-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 25px 0;
+}
+.img-row figure {
+  margin: 0;
+  flex: 0 0 auto;
+}
+.img-row img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  }
+</style>
+
+
+## Numerical Simulation of a Two-Story Building's Seismic Response
+
+Built a nonlinear structural dynamics simulation from scratch in Python — fitting nonlinear spring/damper models to force data, deriving and solving a coupled system of ODEs with a hand-written 4th order Runge-Kutta integrator, and validating it against a Forward Euler implementation.
+
+**[View the code on GitHub →](https://github.com/cpearson03/seismic-response-two-story-building)**
+
+### Contents
+
+<img src="/assets/images/Seismic_Response/dynamic_response_A16.0.png" alt="Dynamic response of the building to earthquake forcing" class="inline-image-r" style="max-width: 400px;">
+
+- [Objective](#objective)
+- [Methodology](#methodology)
+- [Results](#results)
+- [Discussion](#discussion)
+
+
+### Objective
+
+A two-story building can be modelled as two lumped floor masses connected by a nonlinear spring and damper, sitting on a linear-elastic foundation — a standard simplification for studying structural response to earthquake ground motion. The goal of this project was to build the full numerical pipeline needed to simulate that response from first principles: fit the nonlinear force models from data, derive the governing equations as a first-order ODE system, implement a 4th order Runge-Kutta solver without relying on built-in ODE solvers, and rigorously validate it — both against a known analytical solution and against a simpler Forward Euler method — before using it to study how the building responds to earthquakes of different intensity.
+
+
+### Methodology
+
+**Governing equations**
+
+The building is modelled as two floors of mass $m_1$ and $m_2$, connected by a nonlinear spring and damper carrying forces $F_{sp}$ and $F_d$, with the first floor also connected to the foundation via linear stiffness $k_f$ and damping $c_f$:
+
+$$m_2\ddot{x}_2 + F_d + F_{sp} = -m_2\ddot{x}_g$$
+
+$$m_1\ddot{x}_1 - F_d - F_{sp} = -m_1\ddot{x}_g - c_f\dot{x}_1 - k_fx_1$$
+
+where $x_1, x_2$ are the floor displacements and $\ddot{x}_g$ is the earthquake ground acceleration, modelled as a sine wave of amplitude $A$ active for one period $T$.
+
+**Nonlinear spring & damper fit**
+
+$F_{sp}$ and $F_d$ are nonlinear functions of the inter-story relative displacement $\Delta x$ and velocity $\Delta \dot{x}$:
+
+$$F_{sp} = k_1\Delta x + k_2\Delta x^2 + k_3 \Delta x^3, \qquad F_d = c_1\Delta \dot{x} + c_2\Delta \dot{x}^2$$
+
+The coefficients were found by fitting supplied force-displacement and force-velocity datasets, using a polynomial least-squares regression implemented directly from the normal equations (design matrix, Gram matrix, `numpy.linalg.solve`) rather than a built-in curve-fitting function.
+
+<div class="img-row">
+  <figure style="width: 380px;">
+    <img src="/assets/images/Seismic_Response/spring_force_fit.png" alt="Spring force least-squares fit">
+    <figcaption>Cubic least-squares fit of spring force vs. relative displacement.</figcaption>
+  </figure>
+  <figure style="width: 380px;">
+    <img src="/assets/images/Seismic_Response/damping_force_fit.png" alt="Damping force least-squares fit">
+    <figcaption>Quadratic least-squares fit of damping force vs. relative velocity.</figcaption>
+  </figure>
+</div>
+
+| Coefficient | Value |
+|---|---|
+| k₁ | 1.10 × 10⁵ |
+| k₂ | −6.31 × 10⁶ |
+| k₃ | 3.36 × 10⁹ |
+| c₁ | 9.09 × 10¹ |
+| c₂ | 2.54 |
+
+**Reducing to a first-order system**
+
+The two coupled 2nd order ODEs were recast as four coupled 1st order ODEs using the state vector $\mathbf{y} = [x_1, \dot{x}_1, x_2, \dot{x}_2]$, which is the form required by a Runge-Kutta solver.
+
+**RK4 solver & verification**
+
+A fixed-step 4th order Runge-Kutta integrator was implemented directly from its defining stages (k₁–k₄ RHS evaluations per step) rather than using a library solver such as `scipy.integrate.solve_ivp`. Before applying it to the building model, it was verified against the known analytical solution of $\dot{y} = y$ ($y = e^t$), alongside a hand-written Forward Euler integrator, to confirm both were implemented correctly.
+
+<figure style="max-width: 550px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Seismic_Response/solver_verification.png" alt="Solver verification against analytical solution">
+  <figcaption>Both integrators reproduce the exact solution of a known ODE, confirming correct implementation before use on the coupled building model.</figcaption>
+</figure>
+
+**Timestep independence**
+
+The RK4 timestep was halved successively (from h = T/200 down to h = T/800) until the x₁ and x₂ response curves became visually indistinguishable between refinements, giving a converged step size of h = T/400 (6.25 ms) for the production runs.
+
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Seismic_Response/timestep_independence_A16.0.png" alt="Timestep independence test">
+  <figcaption>x₁ and x₂ response converge as the RK4 timestep is halved; h = T/400 was selected as timestep-independent.</figcaption>
+</figure>
+
+
+### Results
+
+The converged RK4 solver was run for two earthquake forcing amplitudes, A = 4.4 m/s² and A = 16 m/s², over a 10 s simulation window.
+
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Seismic_Response/dynamic_response_A4.4.png" alt="Dynamic response at A=4.4">
+  <figcaption>Displacement and velocity response of both floors, A = 4.4 m/s².</figcaption>
+</figure>
+
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Seismic_Response/dynamic_response_A16.0.png" alt="Dynamic response at A=16">
+  <figcaption>Displacement and velocity response of both floors, A = 16 m/s² — larger amplitude and slower decay than the weaker forcing case.</figcaption>
+</figure>
+
+**Forward Euler vs. RK4**
+
+<figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Seismic_Response/euler_vs_rk4_comparison.png" alt="Forward Euler vs RK4 comparison">
+  <figcaption>Forward Euler (h = T/6400) vs. RK4 (h = T/400). Forward Euler is numerically unstable at RK4's timestep and needs a far smaller step just to remain stable.</figcaption>
+</figure>
+
+| Quantity | Value |
+|---|---|
+| Absolute difference at t = 2T (x₁, v₁, x₂, v₂) | 0.00066 m, 0.02168 m/s, 0.00020 m, 0.02720 m/s |
+| Forward Euler step size for error < 10⁻² | 0.264 ms (37,822 total steps) |
+| Forward Euler runtime at matched accuracy | 0.166 s |
+| RK4 runtime | 0.031 s |
+
+
+### Discussion
+
+**Accuracy and stability.** Forward Euler is only 1st-order accurate and becomes numerically unstable for this stiff, nonlinear system at anything close to RK4's timestep — it had to be run at h = T/6400 just to produce a stable result at all, and needed an even smaller step (0.264 ms) to match RK4's accuracy to within 10⁻².
+
+**Computational cost.** Despite RK4 requiring 4 right-hand-side evaluations per step versus Forward Euler's 1, RK4 was still roughly 5× faster overall (0.031 s vs. 0.166 s) at matched accuracy. This is because RK4's 4th-order global accuracy means it needs far fewer total steps to converge than a 1st-order method — the number of steps saved outweighs the extra per-step cost by a wide margin, which is the central practical argument for using higher-order integrators on stiff nonlinear systems like this one.
+
+**Response to forcing amplitude.** Increasing the forcing amplitude from A = 4.4 to 16 m/s² produced proportionally larger displacement and velocity amplitudes and a markedly slower decay after the earthquake forcing ends at t = T, consistent with the nonlinear spring/damper engaging more strongly at larger relative displacements.
+
+
+### Tools Used
+
+Python, NumPy (linear algebra for the least-squares fit), Matplotlib
