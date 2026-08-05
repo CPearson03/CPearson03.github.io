@@ -76,7 +76,7 @@ figure img {
 
 ## Numerical Simulation of a Two-Story Building's Seismic Response
 
-Nonlinear dynamic simulation of a two-storey shear building under seismic loading, solving a coupled system of ODEs with a hand-written 4th order Runge-Kutta integrator, built in **Python**.
+Nonlinear dynamic simulation of a two-story shear building under seismic loading, solving a coupled system of ODEs with a hand-written 4th order Runge-Kutta integrator, built in **Python**.
 
 <img src="/assets/images/Seismic_Response/Thumbnail.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 220px;">
 
@@ -96,13 +96,13 @@ Nonlinear dynamic simulation of a two-storey shear building under seismic loadin
 
 <img src="/assets/images/Seismic_Response/SMD.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 240px;">
 
-A two-story building can be modelled as two lumped floor masses connected by a nonlinear spring and damper, sitting on a linear-elastic foundation — a standard simplification for studying structural response to earthquake ground motion.
+A two-story building can be modelled as two lumped floor masses connected by a nonlinear spring and damper, sitting on a linear-elastic foundation — a standard simplification for studying the structural response to forcing caused by an earthquake.
 
  The goal of this project was to build the full numerical pipeline needed to simulate that response from first principles:
 - Fit the nonlinear force models from data
 - Derive the governing equations as a system of first-order ODEs
 - Implement a 4th order Runge-Kutta solver without relying on built-in ODE solvers
-- Use solver to study how the building responds to earthquakes of different intensities
+- Use the solver to study how the building responds to earthquakes of different intensities
 - Verify results against both a known analytical solution and against a simpler Forward Euler method
 
 
@@ -123,7 +123,7 @@ $$m_2\ddot{x}_2 + F_d + F_{sp} = -m_2\ddot{x}_g$$
 
 $$m_1\ddot{x}_1 - F_d - F_{sp} = -m_1\ddot{x}_g - c_f\dot{x}_1 - k_fx_1$$
 
-where $x_1, x_2$ are the floor displacements and $\ddot{x}_g$ is the earthquake ground acceleration, modelled as a sine wave of amplitude $A$ active for one period $T$. In this project, I used the following parameters to simulate responses for amplitudes of $A=4.4m/s^2$ and $A=16m/s^2$.
+where $x_1, x_2$ are the floor displacements and $\ddot{x}_g$ is the earthquake ground acceleration, modelled as a sine wave of amplitude $A$, active for one period $T$. In this project, I used the following parameters to simulate responses for amplitudes of $A=4.4m/s^2$ and $A=16m/s^2$.
 
 
 | Parameter | Value |
@@ -137,7 +137,7 @@ where $x_1, x_2$ are the floor displacements and $\ddot{x}_g$ is the earthquake 
 
 **Nonlinear spring & damper fit**
 
-$F_{sp}$ and $F_d$ are nonlinear functions of the inter-story relative displacement $\Delta x$ and velocity $\Delta \dot{x}$:
+$F_{sp}$ and $F_d$ are nonlinear functions of the relative displacement ($\Delta x$) and velocity ($\Delta \dot{x}$) between the two stories:
 
 $$F_{sp} = k_1\Delta x + k_2\Delta x^2 + k_3 \Delta x^3, \qquad F_d = c_1\Delta \dot{x} + c_2\Delta \dot{x}^2$$
 
@@ -203,7 +203,7 @@ To verify the solver, I tested it against the known analytical solution of $\dot
 
 <figure style="max-width: 550px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Seismic_Response/solver_verification.png" alt="Solver verification against analytical solution">
-  <figcaption>Both integrators reproduce the exact solution of a known ODE, confirming correct implementation before use on the coupled building model.</figcaption>
+  <figcaption>Both integrators reproduce the exact solution of a known ODE, confirming correct implementation.</figcaption>
 </figure>
 
 
@@ -211,7 +211,9 @@ To verify the solver, I tested it against the known analytical solution of $\dot
 
 **Forward Euler vs. RK4**
 
-I then wanted to test my RK4 solver against the simpler Forward Euler method to analyse the difference in accuracy and computational cost between the two methods.  
+I then wanted to test my RK4 solver against the simpler Forward Euler method to analyse the difference in accuracy and computational cost between the two methods. I first ran the Forward Euler solver with the same time step as used in the RK4 solver ($h=T/400=6.25ms$). With this time step, the solution blew up due to its instability.
+
+I then decreased the time step by a factor of 16 to get $h=T/6400=0.391ms$. At this timestep, I compared the solution with the RK4 solution at its origional timestep of $h=6.25ms$, getting the following plots.
 
 <figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Seismic_Response/euler_vs_rk4_comparison.png" alt="Forward Euler vs RK4 comparison">
