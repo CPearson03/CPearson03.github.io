@@ -296,35 +296,14 @@ internal damping mechanism</li>
 
 <figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Seismic_Response/euler_vs_rk4_comparison.png" alt="Forward Euler vs RK4 comparison" />
-  <figcaption>Forward Euler (h = T/6400) vs. RK4 (h = T/400). Forward Euler is numerically unstable at RK4's timestep and needs a far smaller step just to remain stable.</figcaption>
+  <figcaption>Forward Euler (h = T/6400) vs. RK4 (h = T/400).</figcaption>
 </figure>
 
-<table>
-  <thead>
-    <tr>
-      <th>Quantity</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Absolute difference at t = 2T (x₁, v₁, x₂, v₂)</td>
-      <td>0.00066 m, 0.02168 m/s, 0.00020 m, 0.02720 m/s</td>
-    </tr>
-    <tr>
-      <td>Forward Euler step size for error &lt; 10⁻²</td>
-      <td>0.264 ms (37,822 total steps)</td>
-    </tr>
-    <tr>
-      <td>Forward Euler runtime at matched accuracy</td>
-      <td>0.166 s</td>
-    </tr>
-    <tr>
-      <td>RK4 runtime</td>
-      <td>0.031 s</td>
-    </tr>
-  </tbody>
-</table>
+<p>I then computed the absolute difference between both solutions at $t=2T=5s$. The largest error occured in $v_1$ where the absolute difference between solutions was $0.02168m/s$, appoximately twice the magnitude of the RK4 solution at $t=5s$.</p>
+
+<p>I then investigated how small I have to make the step size of the Forward Euler solver to reduce the absolute error between the methods below $0.01$. To reach this target, it required the step size to be reduced to $0.264s$, approximately <strong>24x smaller than RK4</strong>.</p>
+
+<p>Finally, I timed how long it took both methods to run whilst acheiving the same accuracy (using the same timesteps used above). RK4 had a runtime of $0.031s$, whereas Forward Euler had a runtime of $0.166s$, a <strong>5.4x increase</strong>.</p>
 
 <h3 id="discussion">Discussion</h3>
 
