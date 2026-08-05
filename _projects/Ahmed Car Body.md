@@ -80,7 +80,7 @@ figure img {
 
 ## CFD Analysis of Ahmed Car Body Flow
 
-3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualising the wake structure using Ansys Fluent.
+3D RANS simulation of turbulent flow over an Ahmed car body, predicting drag and lift and visualising the wake structure using **Ansys Fluent**.
 
 
 ### Contents
