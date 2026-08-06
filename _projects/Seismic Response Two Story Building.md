@@ -78,13 +78,15 @@ figure img {
 
 Nonlinear dynamic simulation of a two-story shear building under seismic loading, solving a coupled system of ODEs with a hand-written 4th order Runge-Kutta integrator, built in **Python**.
 
+*Skills demonstrated: numerical integration (RK4), least-squares regression from first principles, convergence and stability analysis, verification against analytical solutions.*
+
+
 **[View the code on GitHub →](https://github.com/cpearson03/seismic-response-two-story-building)**
 
 
+<img src="/assets/images/Seismic_Response/Thumbnail_wide.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 340px;">
+
 ### Contents
-
-<img src="/assets/images/Seismic_Response/Thumbnail_wide.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 290px;">
-
 
 - [Overview](#overview)
 - [Building Mathematical Model](#building-mathematical-model)
@@ -109,12 +111,12 @@ A two-story building can be modelled as two lumped floor masses connected by a n
 </div>
 
  The goal of this project was to build the full numerical pipeline needed to simulate that response from first principles:
+
 - Fit the nonlinear force models from data
 - Derive the governing equations as a system of first-order ODEs
 - Implement a 4th order Runge-Kutta solver without relying on built-in ODE solvers
 - Use the solver to study how the building responds to earthquakes of different intensities
 - Verify results against both a known analytical solution and against a simpler Forward Euler method
-
 
 ### Building Mathematical Model
 
@@ -135,13 +137,12 @@ $$m_1\ddot{x}_1 - F_d - F_{sp} = -m_1\ddot{x}_g - c_f\dot{x}_1 - k_fx_1$$
 
 where $x_1, x_2$ are the floor displacements and $\ddot{x}_g$ is the earthquake ground acceleration, modelled as a sine wave of amplitude $A$, active for one period $T$. In this project, I used the following parameters to simulate responses for amplitudes of $A=4.4m/s^2$ and $A=16m/s^2$.
 
-
 | Parameter | Value |
 |---|---|
-| $m_1$ | 533.5 Kg |
-| $m_2$ | 552.5 Kg |
+| $m_1$ | 533.5 kg |
+| $m_2$ | 552.5 kg |
 | $k_f$ | 456000 N/m |
-| $c_f$ | 68.7 N sec/m |
+| $c_f$ | 68.7 N·s/m |
 | $T$ | 2.5 s |
 
 
@@ -164,13 +165,14 @@ The coefficients were found by fitting supplied force-displacement and force-vel
   </figure>
 </div>
 
-| Coefficient | Value |
-|---|---|
-| $k_1$ | 1.10 × 10⁵ |
-| $k_2$ | −6.31 × 10⁶ |
-| $k_3$ | 3.36 × 10⁹ |
-| $c_1$ | 9.09 × 10¹ |
-| $c_2$ | 2.54 |
+| Coefficient | Value | Units |
+|---|---|---|
+| $k_1$ | 1.10 × 10⁵ | N/m |
+| $k_2$ | −6.31 × 10⁶ | N/m² |
+| $k_3$ | 3.36 × 10⁹ | N/m³ |
+| $c_1$ | 9.09 × 10¹ | N·s/m |
+| $c_2$ | 2.54 | N·s²/m² |
+
 
 **Implementing the RK4 solver**
 
@@ -182,7 +184,7 @@ I then implemented a fixed-step 4th order Runge-Kutta integrator directly from i
 
 **Timestep independence**
 
-Before analysing results, I conducted a timestep independense test to reduce truncation error and ensure the solver was stable. For $A=16m/s^2$, the RK4 timestep was halved successively (from h = T/200 down to h = T/800) until the x₁ and x₂ response curves became visually indistinguishable between refinements. This resulted in a converged step size of h = T/400 (6.25 ms) which I used for all following runs of the simulation.
+Before analysing results, I conducted a timestep independence test to reduce truncation error and ensure the solver was stable. For $A=16m/s^2$, the RK4 timestep was halved successively (from h = T/200 down to h = T/800) until the x₁ and x₂ response curves became visually indistinguishable between refinements. This resulted in a converged step size of h = T/400 (6.25 ms) which I used for all following runs of the simulation.
 
 <figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Seismic_Response/timestep_independence_A16.0.png" alt="Timestep independence test">
@@ -232,7 +234,7 @@ Reducing the time step by a factor of 16 to $h=T/6400=0.391\text{ms}$ stabilised
 
 Computing the absolute difference between the two solutions at $t=2T=5\text{s}$, the largest discrepancy occurred in $v_1$, where the difference was $0.02168\text{m/s}$ — around twice the magnitude of the RK4 solution at $t=5\text{s}$.
 
-I then investigated how small the Forward Euler step size needed to be to bring this error below 10⁻². Reaching that target required a step size of $0.264\text{s}$, approximately **24x smaller than RK4**.
+I then investigated how small the Forward Euler step size needed to be to bring this error below 10⁻². Reaching that target required a step size of $0.264\text{ms}$, approximately **24x smaller than RK4**.
 
 Finally, I timed both methods at the step sizes needed to achieve matching accuracy. RK4 ran in $0.031\text{s}$, compared to $0.166\text{s}$ for Forward Euler — a **5.4x increase** in runtime.
 

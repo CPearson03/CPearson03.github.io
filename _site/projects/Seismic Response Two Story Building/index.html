@@ -116,11 +116,13 @@ figure img {
 
 <p>Nonlinear dynamic simulation of a two-story shear building under seismic loading, solving a coupled system of ODEs with a hand-written 4th order Runge-Kutta integrator, built in <strong>Python</strong>.</p>
 
+<p><em>Skills demonstrated: numerical integration (RK4), least-squares regression from first principles, convergence and stability analysis, verification against analytical solutions.</em></p>
+
 <p><strong><a href="https://github.com/cpearson03/seismic-response-two-story-building">View the code on GitHub →</a></strong></p>
 
-<h3 id="contents">Contents</h3>
+<p><img src="/assets/images/Seismic_Response/Thumbnail_wide.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 340px;" /></p>
 
-<p><img src="/assets/images/Seismic_Response/Thumbnail_wide.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 290px;" /></p>
+<h3 id="contents">Contents</h3>
 
 <ul>
   <li><a href="#overview">Overview</a></li>
@@ -146,6 +148,7 @@ figure img {
 </div>
 
 <p>The goal of this project was to build the full numerical pipeline needed to simulate that response from first principles:</p>
+
 <ul>
   <li>Fit the nonlinear force models from data</li>
   <li>Derive the governing equations as a system of first-order ODEs</li>
@@ -184,11 +187,11 @@ internal damping mechanism</li>
   <tbody>
     <tr>
       <td>$m_1$</td>
-      <td>533.5 Kg</td>
+      <td>533.5 kg</td>
     </tr>
     <tr>
       <td>$m_2$</td>
-      <td>552.5 Kg</td>
+      <td>552.5 kg</td>
     </tr>
     <tr>
       <td>$k_f$</td>
@@ -196,7 +199,7 @@ internal damping mechanism</li>
     </tr>
     <tr>
       <td>$c_f$</td>
-      <td>68.7 N sec/m</td>
+      <td>68.7 N·s/m</td>
     </tr>
     <tr>
       <td>$T$</td>
@@ -229,28 +232,34 @@ internal damping mechanism</li>
     <tr>
       <th>Coefficient</th>
       <th>Value</th>
+      <th>Units</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>$k_1$</td>
       <td>1.10 × 10⁵</td>
+      <td>N/m</td>
     </tr>
     <tr>
       <td>$k_2$</td>
       <td>−6.31 × 10⁶</td>
+      <td>N/m²</td>
     </tr>
     <tr>
       <td>$k_3$</td>
       <td>3.36 × 10⁹</td>
+      <td>N/m³</td>
     </tr>
     <tr>
       <td>$c_1$</td>
       <td>9.09 × 10¹</td>
+      <td>N·s/m</td>
     </tr>
     <tr>
       <td>$c_2$</td>
       <td>2.54</td>
+      <td>N·s²/m²</td>
     </tr>
   </tbody>
 </table>
@@ -265,7 +274,7 @@ internal damping mechanism</li>
 
 <p><strong>Timestep independence</strong></p>
 
-<p>Before analysing results, I conducted a timestep independense test to reduce truncation error and ensure the solver was stable. For $A=16m/s^2$, the RK4 timestep was halved successively (from h = T/200 down to h = T/800) until the x₁ and x₂ response curves became visually indistinguishable between refinements. This resulted in a converged step size of h = T/400 (6.25 ms) which I used for all following runs of the simulation.</p>
+<p>Before analysing results, I conducted a timestep independence test to reduce truncation error and ensure the solver was stable. For $A=16m/s^2$, the RK4 timestep was halved successively (from h = T/200 down to h = T/800) until the x₁ and x₂ response curves became visually indistinguishable between refinements. This resulted in a converged step size of h = T/400 (6.25 ms) which I used for all following runs of the simulation.</p>
 
 <figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Seismic_Response/timestep_independence_A16.0.png" alt="Timestep independence test" />
@@ -310,7 +319,7 @@ internal damping mechanism</li>
 
 <p>Computing the absolute difference between the two solutions at $t=2T=5\text{s}$, the largest discrepancy occurred in $v_1$, where the difference was $0.02168\text{m/s}$ — around twice the magnitude of the RK4 solution at $t=5\text{s}$.</p>
 
-<p>I then investigated how small the Forward Euler step size needed to be to bring this error below 10⁻². Reaching that target required a step size of $0.264\text{s}$, approximately <strong>24x smaller than RK4</strong>.</p>
+<p>I then investigated how small the Forward Euler step size needed to be to bring this error below 10⁻². Reaching that target required a step size of $0.264\text{ms}$, approximately <strong>24x smaller than RK4</strong>.</p>
 
 <p>Finally, I timed both methods at the step sizes needed to achieve matching accuracy. RK4 ran in $0.031\text{s}$, compared to $0.166\text{s}$ for Forward Euler — a <strong>5.4x increase</strong> in runtime.</p>
 
