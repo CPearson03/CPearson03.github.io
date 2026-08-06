@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Modeling Buildings Seismic Response
+title: Seismic Response Modelling
 description: Numerical Methods Project
 technologies: [Python, NumPy, Matplotlib]
 image: /assets/images/Seismic_Response/Thumbnail.png
@@ -78,12 +78,13 @@ figure img {
 
 Nonlinear dynamic simulation of a two-story shear building under seismic loading, solving a coupled system of ODEs with a hand-written 4th order Runge-Kutta integrator, built in **Python**.
 
-<img src="/assets/images/Seismic_Response/Thumbnail.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 220px;">
-
 **[View the code on GitHub →](https://github.com/cpearson03/seismic-response-two-story-building)**
 
 
 ### Contents
+
+<img src="/assets/images/Seismic_Response/Thumbnail_wide.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 290px;">
+
 
 - [Overview](#overview)
 - [Building Mathematical Model](#building-mathematical-model)
@@ -94,9 +95,18 @@ Nonlinear dynamic simulation of a two-story shear building under seismic loading
 
 ### Overview
 
-<img src="/assets/images/Seismic_Response/SMD.png" alt="Thumbnail image" class="inline-image-r" style="max-width: 240px;">
-
 A two-story building can be modelled as two lumped floor masses connected by a nonlinear spring and damper, sitting on a linear-elastic foundation — a standard simplification for studying the structural response to forcing caused by an earthquake.
+
+<div class="img-row">
+  <figure style="max-width: 240px; margin-left: auto; margin-right: auto;">
+  <img src="/assets/images/Seismic_Response/Building_schematic.png" alt="Two storey building">
+  <figcaption>Two-story building subjected to a ground acceleration.</figcaption>
+</figure>
+  <figure style="width: 350px;">
+    <img src="/assets/images/Seismic_Response/SMD.png" alt="Spring-mass model">
+    <figcaption>Spring-mass model for the frame.</figcaption>
+  </figure>
+</div>
 
  The goal of this project was to build the full numerical pipeline needed to simulate that response from first principles:
 - Fit the nonlinear force models from data
@@ -144,11 +154,11 @@ $$F_{sp} = k_1\Delta x + k_2\Delta x^2 + k_3 \Delta x^3, \qquad F_d = c_1\Delta 
 The coefficients were found by fitting supplied force-displacement and force-velocity datasets, using a polynomial least-squares regression implemented directly from the normal equations (design matrix, Gram matrix, `numpy.linalg.solve`) rather than a built-in curve-fitting function.
 
 <div class="img-row">
-  <figure style="width: 450px;">
+  <figure style="width: 550px;">
     <img src="/assets/images/Seismic_Response/spring_force_fit.png" alt="Spring force least-squares fit">
     <figcaption>Cubic least-squares fit of spring force vs. relative displacement.</figcaption>
   </figure>
-  <figure style="width: 450px;">
+  <figure style="width: 550px;">
     <img src="/assets/images/Seismic_Response/damping_force_fit.png" alt="Damping force least-squares fit">
     <figcaption>Quadratic least-squares fit of damping force vs. relative velocity.</figcaption>
   </figure>
@@ -195,6 +205,7 @@ The converged RK4 solver was run for both earthquake forcing amplitudes, A = 4.4
 </figure>
 
 
+
 ### Verification
 
 **Comparing against known analytical solution**
@@ -208,34 +219,37 @@ To verify the solver, I tested it against the known analytical solution of $\dot
 
 
 
-
 **Forward Euler vs. RK4**
 
-I then wanted to test my RK4 solver against the simpler Forward Euler method to analyse the difference in accuracy and computational cost between the two methods. I first ran the Forward Euler solver with the same time step as used in the RK4 solver ($h=T/400=6.25ms$). With this time step, the solution blew up due to its instability.
+To assess the trade-off between accuracy and computational cost, I compared my RK4 solver against the simpler Forward Euler method. Running Forward Euler at the same time step as RK4 ($h=T/400=6.25\text{ms}$) caused the solution to blow up due to instability.
 
-I then decreased the time step by a factor of 16 to get $h=T/6400=0.391ms$. At this timestep, I compared the solution with the RK4 solution at its origional timestep of $h=6.25ms$, getting the following plots.
+Reducing the time step by a factor of 16 to $h=T/6400=0.391\text{ms}$ stabilised the solution. At this step size, I compared it against the RK4 solution at its original time step of $h=6.25\text{ms}$, giving the following plots.
 
 <figure style="max-width: 700px; margin-left: auto; margin-right: auto;">
   <img src="/assets/images/Seismic_Response/euler_vs_rk4_comparison.png" alt="Forward Euler vs RK4 comparison">
   <figcaption>Forward Euler (h = T/6400) vs. RK4 (h = T/400).</figcaption>
 </figure>
 
-I then computed the absolute difference between both solutions at $t=2T=5s$. The largest error occured in $v_1$ where the absolute difference between solutions was $0.02168m/s$, appoximately twice the magnitude of the RK4 solution at $t=5s$.
+Computing the absolute difference between the two solutions at $t=2T=5\text{s}$, the largest discrepancy occurred in $v_1$, where the difference was $0.02168\text{m/s}$ — around twice the magnitude of the RK4 solution at $t=5\text{s}$.
 
-I then investigated how small I have to make the step size of the Forward Euler solver to reduce the absolute error between the methods below $0.01$. To reach this target, it required the step size to be reduced to $0.264s$, approximately **24x smaller than RK4**. 
+I then investigated how small the Forward Euler step size needed to be to bring this error below 10⁻². Reaching that target required a step size of $0.264\text{s}$, approximately **24x smaller than RK4**.
 
-Finally, I timed how long it took both methods to run whilst acheiving the same accuracy (using the same timesteps used above). RK4 had a runtime of $0.031s$, whereas Forward Euler had a runtime of $0.166s$, a **5.4x increase**.
+Finally, I timed both methods at the step sizes needed to achieve matching accuracy. RK4 ran in $0.031\text{s}$, compared to $0.166\text{s}$ for Forward Euler — a **5.4x increase** in runtime.
+
 
 
 ### Discussion
+**Effect of forcing amplitude.**
+Both floors show smaller amplitudes for the lower value of $A$, with $x_1$ and $v_1$ smaller than $x_2$ and $v_2$ throughout. In all four responses, two distinct characteristic wavelengths are visible: a longer wavelength dominates the start of the signal, with a shorter wavelength superimposed on top. The longer wavelength dies out after around 2.5 seconds — once the earthquake forcing has stopped — but the shorter wavelength persists for the full duration of the signal.
+
+For the lower amplitude case, $x_1$, $v_1$, $x_2$ and $v_2$ all decay rapidly after around 2.5 seconds, dropping to very low values. For $A=16\text{m/s}^2$, the responses also reduce after 2.5 seconds, but the decay is far slower, leaving much larger values after 10 seconds compared to the lower amplitude case.
+
 
 **Accuracy and stability.** Forward Euler is only 1st-order accurate and becomes numerically unstable for this stiff, nonlinear system at anything close to RK4's timestep — it had to be run at h = T/6400 just to produce a stable result at all, and needed an even smaller step (0.264 ms) to match RK4's accuracy to within 10⁻².
 
-**Computational cost.** Despite RK4 requiring 4 right-hand-side evaluations per step versus Forward Euler's 1, RK4 was still roughly 5× faster overall (0.031 s vs. 0.166 s) at matched accuracy. This is because RK4's 4th-order global accuracy means it needs far fewer total steps to converge than a 1st-order method — the number of steps saved outweighs the extra per-step cost by a wide margin, which is the central practical argument for using higher-order integrators on stiff nonlinear systems like this one.
-
-**Response to forcing amplitude.** Increasing the forcing amplitude from A = 4.4 to 16 m/s² produced proportionally larger displacement and velocity amplitudes and a markedly slower decay after the earthquake forcing ends at t = T, consistent with the nonlinear spring/damper engaging more strongly at larger relative displacements.
+**Computational cost.** Despite RK4 requiring 4 right-hand-side evaluations per step versus Forward Euler's 1, RK4 was still roughly 5× faster overall (0.031 s vs. 0.166 s) at matched accuracy. This is because RK4 is an order $O(h^4)$ method globally, meaning it needs far fewer total steps to converge than a Forward Euler $O(h)$ method. The number of steps saved significantly outweighs the extra per-step cost, which is the central practical argument for using higher-order integrators on stiff nonlinear systems like this one.
 
 
 ### Tools Used
 
-Python, NumPy (linear algebra for the least-squares fit), Matplotlib
+Python, NumPy, Matplotlib
