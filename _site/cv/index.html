@@ -48,8 +48,7 @@
   <main class="container">
     <div style="display:flex; justify-content:space-between;">
   <a href="mailto:C.Pearson-9@sms.ed.ac.uk">C.Pearson-9@sms.ed.ac.uk</a>
-  <span>+44 7492 505324</span>
-  <a href="https://www.linkedin.com/in/charlie-pearson-meng">LinkedIn</a>
+  <span>07492505324</span>
 </div>
 
 <hr />
@@ -59,9 +58,9 @@
 <p><strong>University of Edinburgh</strong> – MEng Mechanical Engineering (2023 – 2028)</p>
 <ul>
   <li>First year class medal, awarded to best performing student in the cohort</li>
-  <li>Year-long exchange at Cornell University (3rd year) with 3.78 GPA</li>
+  <li>Year-long exchange at Cornell University (3rd year) with 3.96 GPA</li>
   <li>Predicted 1st class honours</li>
-  <li>Relevant Modules: Solid Mechanics, System Dynamics, Engineering Design, Material Processing, Thermodynamics, Fluid Mechanics, Numerical Methods</li>
+  <li>Relevant Modules: Solid Mechanics, Fluid Mechanics, Engineering Design, Material Processing, Thermodynamics, System Dynamics, Numerical Methods</li>
 </ul>
 
 <p><strong>The Sixth Form College Farnborough</strong> (2020 – 2022)</p>
@@ -72,12 +71,40 @@
 
 <hr />
 
+<h2 id="projects">Projects</h2>
+
+<p><strong>Electric Bike-Share Frame – FEA Design &amp; Optimisation</strong></p>
+<ul>
+  <li>Designed and analysed a bike-share frame in Fusion 360 and ANSYS Mechanical, removing the top tube for easier mounting while targeting a safety factor ≥ 2</li>
+  <li>Modelled the frame using shell elements to capture thin-walled tube behaviour, keeping the mesh coarse and the solution computationally efficient without sacrificing accuracy</li>
+  <li>Ran a parametric thickness optimisation on the three most critical tubes, raising minimum safety factor by 55% for just a 5% mass increase over the original uniform-thickness design</li>
+  <li>Verified results via reaction force balance, boundary condition checks, and mesh convergence studies, with deformation and stress converging within 5%</li>
+</ul>
+
+<p><strong>CFD Analysis of Ahmed Car Body Flow</strong></p>
+<ul>
+  <li>Simulated 3D turbulent flow over an Ahmed car body in ANSYS Fluent, solving the RANS equations with the k-ω GEKO turbulence model to predict drag and lift coefficients</li>
+  <li>Built a half-domain mesh using a symmetry boundary condition and boundary-layer inflation, reaching residual convergence below 10⁻³ within 58 iterations</li>
+  <li>Validated C<sub>D</sub> and C<sub>L</sub> against published experimental data, landing within 12% of literature values while correctly reproducing separation and wake behaviour</li>
+  <li>Diagnosed the source of discrepancy through a ranked analysis of modelling simplifications (domain size, turbulence closure, symmetry assumption), identifying domain size as the dominant contributor</li>
+</ul>
+
+<p><strong>Numerical Simulation of a Two-Story Building’s Seismic Response</strong></p>
+<ul>
+  <li>Modelled a two-story shear building under seismic loading as a coupled nonlinear ODE system, fitting nonlinear spring and damper force models from data via least-squares regression</li>
+  <li>Implemented a 4th order Runge-Kutta integrator from scratch in Python, confirming timestep independence and validating the solver against a known analytical solution</li>
+  <li>Benchmarked against a hand-written Forward Euler integrator, showing RK4 held stable at a 24x larger timestep for equivalent accuracy, while running 5.4x faster overall</li>
+  <li>Analysed the building’s dynamic response across two earthquake intensities, characterising how forcing amplitude affects decay behaviour and peak displacement</li>
+</ul>
+
+<hr />
+
 <h2 id="experience">Experience</h2>
 
 <p><strong>BUiD Sustainability Spring School</strong> (2025)</p>
 <ul>
   <li>Collaborated with engineers, architects, and designers to develop a sustainable lighting solution, integrating mechanical design and energy efficiency principles</li>
-  <li>Pitched the final design to a panel of engineers and academics, achieving 1st place</li>
+  <li>Co-presented the final design to a panel of engineers and academics, achieving 1st place</li>
   <li>Communicated technical concepts within an international team, supporting members for whom English was not a first language</li>
 </ul>
 
@@ -85,79 +112,42 @@
 <ul>
   <li>Co-founded a tutoring company educating and mentoring children from ages 8–18</li>
   <li>Grew the business to a revenue of over £15,000 and employed up to 8 tutors</li>
-  <li>Developed a structured curriculum to ensure quality and consistency, yielding a 100% pass rate over a 5-year period</li>
+  <li>Developed a structured curriculum to ensure quality and consistency, sustaining a 100% pass rate over a 5-year period</li>
 </ul>
 
 <p><strong>Costa Coffee, Barista</strong> (2022 – Present)</p>
 <ul>
   <li>Led shifts of 4–6 staff in a fast-paced environment fostering teamwork and efficiency</li>
-  <li>Implemented stock management strategies, reducing monthly waste by 15%</li>
-</ul>
-
-<p><strong>Chillisauce Ltd, Work Experience Week</strong> (2019)</p>
-<ul>
-  <li>Gained broad insight into business operations through departmental rotations and project shadowing</li>
-</ul>
-
-<hr />
-
-<h2 id="projects">Projects</h2>
-
-<p><strong>Instrumented Torque Wrench Design</strong></p>
-<ul>
-  <li>Designed a 600 in-lbf torque wrench with integrated strain gauge instrumentation, optimising for sensitivity while meeting fatigue life and fracture safety requirements</li>
-  <li>Performed materials selection and iterative design using Python scripts and Granta to balance competing constraints (yield strength, fracture toughness, fatigue resistance)</li>
-  <li>Validated hand calculations against ANSYS FEA models, achieving &gt;1.0 mV/V sensor output while maintaining required safety factors</li>
-  <li>Created parametric CAD model in Fusion 360 and conducted mesh refinement studies to verify stress concentrations</li>
+  <li>Analysed sales data to forecast demand and implement stock management strategies, reducing monthly waste by 15%</li>
 </ul>
 
 <hr />
 
 <h2 id="technical-skills">Technical Skills</h2>
 
-<p><strong>Engineering &amp; Analysis</strong></p>
+<p><strong>Software</strong></p>
 <ul>
-  <li>Structural analysis using finite element methods in ANSYS</li>
-  <li>Material selection and optimisation using Granta EduPack</li>
-  <li>Engineering calculations and design validation</li>
+  <li>ANSYS Fluent, ANSYS Mechanical, Fusion 360, Granta EduPack</li>
 </ul>
 
-<p><strong>CAD &amp; Design</strong></p>
+<p><strong>Programming &amp; Numerical Methods</strong></p>
 <ul>
-  <li>Fusion 360 — parametric modelling, assemblies and design iteration</li>
-  <li>AutoCAD — 2D engineering drawings</li>
+  <li>Python (NumPy, Matplotlib), MATLAB, nonlinear ODE modelling, least-squares regression</li>
 </ul>
 
-<p><strong>Programming &amp; Computational Tools</strong></p>
+<p><strong>Manufacturing &amp; Testing</strong></p>
 <ul>
-  <li>Python — primary language for engineering scripting and numerical analysis</li>
-  <li>MATLAB — foundational experience from engineering coursework</li>
+  <li>Mill and lathe operation, tensile testing, ASTM standards</li>
 </ul>
 
-<p><strong>Laboratory &amp; Manufacturing</strong></p>
+<p><strong>Engineering Analysis</strong></p>
 <ul>
-  <li>Operation of mill, lathe, and bandsaw for prototype fabrication</li>
-  <li>Mechanical testing using tensile testing machines in accordance with ASTM standards</li>
-  <li>Oscilloscope analysis of free and forced vibration response in dynamic systems</li>
-</ul>
-
-<p><strong>Technical Communication</strong></p>
-<ul>
-  <li>Technical reporting using LaTeX and Microsoft Office</li>
+  <li>FEA, CFD, mesh convergence, simulation validation</li>
 </ul>
 
 <hr />
 
-<h2 id="leadership--additional-experience">Leadership &amp; Additional Experience</h2>
-
-<ul>
-  <li>Captained school football team to its first county cup final, developing teamwork and performance-driven leadership</li>
-  <li>International academic and project experience through study at Cornell University and participation in sustainability programme in Dubai</li>
-</ul>
-
-<hr />
-
-<p><a href="/assets/CV_Current.pdf">Download my CV</a> in pdf format.</p>
+<p><a href="/assets/CV.pdf">Download my CV</a> in pdf format.</p>
 
   </main>
 
